@@ -1,4 +1,4 @@
-package com.mj;
+package com.linkedlist;
 
 public class Asserts {
 	public static void test(boolean value) {

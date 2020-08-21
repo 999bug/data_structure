@@ -1,7 +1,5 @@
-package com.mj;
+package com.array;
 
-
-import java.util.List;
 
 public class Main {
 

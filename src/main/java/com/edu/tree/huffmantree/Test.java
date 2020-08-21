@@ -6,7 +6,7 @@ package com.edu.tree.huffmantree;
  * @Description 赫夫曼树测试
  */
 public class Test {
-    @org.junit.Test
+
     public void Test() {
         int[] arr = { 13, 7, 8, 3, 29, 6, 1 };
         HuffmanTree huffmanTree=new HuffmanTree();

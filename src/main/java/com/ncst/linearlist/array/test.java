@@ -1,6 +1,4 @@
-package com.ncst.array;
-
-import java.util.ArrayList;
+package com.ncst.linearlist.array;
 
 /**
  * @Date 2020/8/20 9:06
@@ -28,8 +26,11 @@ public class test {
         MyArrayList<Person> persons=new MyArrayList<>();
 		persons.add(new Person(10, "Jack"));
 		persons.add(new Person(15, "Rose"));
-		persons.add(null);
+		//persons.add(null);
+
 		persons.add(new Person(12, "James"));
+
+		persons.remove(0);
         System.out.println(persons.toString());
 
     }

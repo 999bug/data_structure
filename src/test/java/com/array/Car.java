@@ -1,4 +1,4 @@
-package com.mj;
+package com.array;
 
 public class Car {
 

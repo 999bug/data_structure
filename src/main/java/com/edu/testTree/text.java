@@ -1,6 +1,6 @@
 package com.edu.testTree;
 
-import org.junit.Test;
+
 
 import java.io.*;
 
@@ -16,7 +16,7 @@ public class text {
     }
 
 
-    @Test
+
     public void test3(){
         Integer i=120;
         Integer b=120;
@@ -24,7 +24,7 @@ public class text {
         Integer c=127;
         Integer d=127;
     }
-    @Test
+
     public void test1() {
 
         int arr2[][]=new int[11][3];
@@ -78,7 +78,7 @@ public class text {
         return b;
 
     }
-    @Test
+
     public  void  a(){
         int arr2[][]=new int[11][3];
         File file = new File("d:\\c.txt");

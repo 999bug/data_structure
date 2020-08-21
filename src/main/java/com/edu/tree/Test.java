@@ -31,7 +31,7 @@ public class Test {
     /**
      * 测试二叉树深度
      */
-    @org.junit.Test
+
     public void test1() {
         LinkedList<Integer> inputlist = new LinkedList<Integer>(
                 Arrays.asList(3, 2, 9, null, null, 10, null,
@@ -43,7 +43,7 @@ public class Test {
 
     }
 
-    @org.junit.Test
+
     public void TreeNodeTest() {
         //返回一个受指定数组支持的固定大小的列表。（对返回列表的更改会“直接写”到数组。）
         LinkedList<Integer> inputlist = new LinkedList<Integer>(
@@ -63,7 +63,7 @@ public class Test {
         levelOrderTraversal(treeNode);*/
     }
 
-    @org.junit.Test
+
     public void name() {
         //返回一个受指定数组支持的固定大小的列表。（对返回列表的更改会“直接写”到数组。）
         LinkedList<Integer> inputlist = new LinkedList<Integer>(
@@ -99,7 +99,7 @@ public class Test {
 
     }
 
-    @org.junit.Test
+
     public void heapSort() {
         int SIZE=8000000;
         int[] arr=new int[SIZE];
@@ -117,7 +117,7 @@ public class Test {
       //  System.out.println(Arrays.toString(arr));
 
     }
-    @org.junit.Test
+
     public void quickSort() {
         int SIZE=8000000;
         int[] arr=new int[SIZE];
@@ -137,7 +137,7 @@ public class Test {
 
     }
 
-    @org.junit.Test
+
     public void BubleSort() {
         int SIZE=8000000;
         int[] arr=new int[SIZE];

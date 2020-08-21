@@ -7,7 +7,7 @@ package com.edu.graph;
  */
 public class Test {
 
-    @org.junit.Test
+
     public void test() {
         //图对象
         Graph graph = new Graph(8);

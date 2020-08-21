@@ -1,5 +1,8 @@
-package com.mj;
+package com.ncst.linearlist.array;
 
+/**
+ * @author hp
+ */
 public class Person {
 	private int age;
 	private String name;

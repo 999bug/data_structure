@@ -1,8 +1,5 @@
-package com.ncst.array;
+package com.array;
 
-/**
- * @author hp
- */
 public class Person {
 	private int age;
 	private String name;

@@ -1,27 +1,21 @@
-package com.ncst.array;
+package com.ncst.linearlist.array;
 
 
-
-
+import com.ncst.linearlist.AbstractList;
 
 /**
  * @Date 2020/8/20 11:09
  * @Author by LiShiYan
  * @Descaption 手写ArrayList
  */
-public class MyArrayList<E> {
+public class MyArrayList<E> extends AbstractList<E> {
 
-    /**
-     * 元素数量
-     */
-    private int size;
     /**
      * 所有的元素
      */
     private E[] array;
 
     private static final int DEFFAUT_CAPACITY = 10;
-    private static final int ELEMENT_NOT_FOUND = -1;
 
     public MyArrayList(int capacity) {
         capacity = Math.max(capacity, DEFFAUT_CAPACITY);
@@ -35,6 +29,7 @@ public class MyArrayList<E> {
     /**
      * 清空元素
      */
+    @Override
     public void clear() {
         //将对象引用置为空
         for (int i = 0; i < size; i++) {
@@ -43,11 +38,9 @@ public class MyArrayList<E> {
         size = 0;
     }
 
-    /**
-     * 添加元素到尾部
-     */
-    public void add(E element) {
-        add(size, element);
+    @Override
+    public E get(int index) {
+        return array[index];
     }
 
     /**
@@ -56,8 +49,25 @@ public class MyArrayList<E> {
      * @param index
      * @param element
      */
+    @Override
+    public E set(int index, E element) {
+        checkIndex(index);
+        //返回旧的元素
+        E old = array[index];
+        //在index 位置上赋值
+        array[index] = element;
+        return old;
+    }
+
+    /**
+     * 在index位置插入一个元素
+     *
+     * @param index
+     * @param element
+     */
+    @Override
     public void add(int index, E element) {
-        checkIndexAdd(index);
+        checkIndexForAdd(index);
 
         ensureCapacity(size + 1);
 
@@ -68,34 +78,11 @@ public class MyArrayList<E> {
         size++;
     }
 
-
-    /**
-     * 在index位置插入一个元素
-     *
-     * @param index
-     * @param element
-     */
-    public E seEt(int index, E element) {
-        checkIndex(index);
-        //返回旧的元素
-        E old = array[index];
-        //在index 位置上赋值
-        array[index] = element;
-        return old;
-    }
-
-
-    /**
-     * @return 是否为空
-     */
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     /**
      * @param index 下标
      * @return 删除元素
      */
+    @Override
     public E remove(int index) {
         checkIndex(index);
 
@@ -108,21 +95,13 @@ public class MyArrayList<E> {
         return old;
     }
 
-
-    /**
-     * @return 元素数量
-     */
-    public int size() {
-        return size;
-    }
-
-
     /**
      * 查看元素的索引
      *
      * @param element
      * @return
      */
+    @Override
     public int indexOf(E element) {
         //当查看元素索引为空时，返回第一个空的索引
         if (element == null) {
@@ -144,15 +123,6 @@ public class MyArrayList<E> {
         return ELEMENT_NOT_FOUND;
     }
 
-    /**
-     * 是否包含某个元素
-     *
-     * @param element
-     * @return
-     */
-    public boolean contains(E element) {
-        return indexOf(element) != ELEMENT_NOT_FOUND;
-    }
 
     /**
      * 扩容
@@ -174,27 +144,6 @@ public class MyArrayList<E> {
         //将新的数组指向array
         array = newArray;
         System.out.println(oldCapacity + "扩容为：" + newCapacity);
-    }
-
-    private void outOfBounds(int index) {
-        throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
-    }
-
-    private void checkIndex(int index) {
-        if (index < 0 || index >= size) {
-            outOfBounds(index);
-        }
-    }
-
-    /**
-     * 添加元素的边界值 是 > 而不是>=
-     *
-     * @param index
-     */
-    private void checkIndexAdd(int index) {
-        if (index < 0 || index > size) {
-            outOfBounds(index);
-        }
     }
 
     @Override

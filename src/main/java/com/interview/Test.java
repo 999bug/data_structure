@@ -13,7 +13,7 @@ public class Test {
     /**
      * 数组实现队列
      */
-    @org.junit.Test
+
     public void test1() {
         StackRealizeQueue stackQueue = new StackRealizeQueue();
         stackQueue.enQueue(1);
@@ -30,7 +30,7 @@ public class Test {
     /**
      * 最小栈测试
      */
-    @org.junit.Test
+
     public void test2() {
         MinStack stack = new MinStack();
 
@@ -47,7 +47,7 @@ public class Test {
         System.out.println(stack.getMin());
     }
 
-    @org.junit.Test
+
     public void test3() {
         FindNearestNumberDemo f = new FindNearestNumberDemo();
         int[] numbers = {1, 2, 3, 4, 5};
@@ -57,7 +57,7 @@ public class Test {
         }
     }
 
-    @org.junit.Test
+
     public void test4() {
         RemoveDigitsToLeast r = new RemoveDigitsToLeast();
         String str = "9000593212";
@@ -65,20 +65,20 @@ public class Test {
         System.out.println("原来数:= " + str + "删除" + k + "个:" + "新的：" + r.removeDigits(str, k));
     }
 
-    @org.junit.Test
+
     public void 特爽t() {
         int[] array = new int[]{2, 3, 1, 5, 1, 7, 1, 8, 1, 9};
         Arrays.sort(array);
         System.out.println("Arrays.toString(array) = " + array[array.length / 2]);
     }
 
-    @org.junit.Test
+
     public void BigMumSum() {
         BigNumberSumDemo b = new BigNumberSumDemo();
         System.out.println(b.bigNumberSum("426709752318", "95481253129"));
     }
 
-    @org.junit.Test
+
     public void GetBestGold() {
         long l = System.currentTimeMillis();
         GetBestGoldDemo ga = new GetBestGoldDemo();
@@ -90,7 +90,7 @@ public class Test {
         System.out.println("time" + (l1 - l));
     }
 
-    @org.junit.Test
+
     public void findMissingNumber() {
         Random random=new Random();
         int[] array = new int[100];
