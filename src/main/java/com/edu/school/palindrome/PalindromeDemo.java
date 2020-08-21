@@ -1,4 +1,4 @@
-package com.ncst.school.palindrome;
+package com.edu.school.palindrome;
 
 import com.sun.xml.internal.ws.util.StringUtils;
 

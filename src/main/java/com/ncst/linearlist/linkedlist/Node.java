@@ -10,8 +10,11 @@ public class Node<E> {
     public Node<E> pre;
     public Node<E> next;
 
-    public Node(E element, Node<E> next) {
+
+
+    public Node( Node<E> pre, E element,Node<E> next) {
         this.element = element;
+        this.pre = pre;
         this.next = next;
     }
 

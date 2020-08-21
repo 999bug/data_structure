@@ -1,4 +1,4 @@
-package com.ncst.school;
+package com.edu.school;
 
 public class Calculator {
 

@@ -1,4 +1,4 @@
-package com.ncst.school.palindrome;
+package com.edu.school.palindrome;
 
 /**
  * @Date 2020/5/11 10:53

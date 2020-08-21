@@ -1,21 +1,27 @@
 package com.ncst.linearlist.linkedlist;
 
 import com.ncst.linearlist.AbstractList;
-import org.omg.CORBA.NO_IMPLEMENT;
 
 /**
  * @Date 2020/8/21 10:10
  * @Author by LiShiYan
- * @Descaption
+ * @Descaption 双向链表
  */
 public class MyLinkedList<E> extends AbstractList<E> {
+    /**
+     * 头结点
+     */
     Node<E> head;
-    Node<E> next;
+    /**
+     * 尾结点
+     */
+    Node<E> last;
 
     @Override
     public void clear() {
         size = 0;
         head = null;
+        last = null;
     }
 
     @Override
@@ -39,11 +45,35 @@ public class MyLinkedList<E> extends AbstractList<E> {
     @Override
     public void add(int index, E element) {
         checkIndexForAdd(index);
-        if (index == 0) {
-            head = new Node<>(element, head);
+        //在末尾添加
+        if (index == size) {
+            Node<E> oldLast = last;
+            last = new Node<>(oldLast, element, null);
+            //链表添加的第一个元素
+            if (oldLast == null) {
+                head = last;
+            } else {
+                //之前末尾元素的下一个指针指向新添加的这个元素
+                oldLast.next = last;
+            }
         } else {
-            Node<E> prev = node(index - 1);
-            prev.next = new Node<>(element, prev.next);
+            //当前位置添加
+            Node<E> cur = node(index);
+            //当前位置的前一个位置
+            Node<E> pre = cur.pre;
+            //新添加的这个元素的前指针指向pre 后指针指向cur
+            Node<E> node = new Node<>(pre, element, cur);
+            //当前位置的前指针指向，新添加的元素位置
+            cur.pre=node;
+
+            //如果当前结点是头结点，则把新添加的这个元素赋值尾头结点
+            if (pre==null){
+                head=node;
+            }else {
+                //pre 的下一个指针指向新添加的结点
+                pre.next=node;
+            }
+
         }
         size++;
     }
@@ -51,17 +81,26 @@ public class MyLinkedList<E> extends AbstractList<E> {
     @Override
     public E remove(int index) {
         checkIndex(index);
-        //如果删除头结点，把头结点返回
-        Node<E> node = head;
-        if (index == 0) {
-            head = head.next;
+        //当前结点
+        Node<E> node = node(index);
+        //前一个结点
+        Node<E> pre = node.pre;
+        //下一个结点
+        Node<E> next = node.next;
+
+        if (pre == null) {
+            head = next;
         } else {
-            Node<E> prev = node(index - 1);
-            //删除的不是头结点，返回此节点
-            node = prev.next;
-            //删除结点前一个结点的下一个结点指针，指向当前结点的下一个结点
-            prev.next = node.next;
+            pre.next = next;
         }
+
+        if (next == null) {
+            last = pre;
+        } else {
+            next.pre = pre;
+        }
+
+
         size--;
         return node.element;
     }
@@ -103,11 +142,22 @@ public class MyLinkedList<E> extends AbstractList<E> {
      */
     public Node<E> node(int index) {
         checkIndex(index);
-        Node<E> node = head;
-        for (int i = 0; i < index; i++) {
-            node = node.next;
+        //在前半部分
+        if (index < (size >> 1)) {
+            Node<E> node = head;
+            for (int i = 0; i < index; i++) {
+                node = node.next;
+            }
+            return node;
         }
-        return node;
+        //在后半部分
+        else {
+            Node<E> node = last;
+            for (int i = size - 1; i > index; i--) {
+                node = node.pre;
+            }
+            return node;
+        }
     }
 
     @Override
@@ -120,7 +170,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
                 sb.append(",");
             }
             sb.append(node);
-            node= node.next;
+            node = node.next;
         }
         sb.append("]");
         return sb.toString();

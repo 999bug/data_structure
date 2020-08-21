@@ -1,4 +1,4 @@
-package com.ncst.school;
+package com.edu.school;
 
 // 创建一个环形的单向链表
 class CircleSingleLinkedList {
