@@ -1,5 +1,7 @@
 package com.ncst.linearlist.array;
 
+import com.ncst.linearlist.MyList;
+
 /**
  * @Date 2020/8/20 9:06
  * @Author by LiShiYan
@@ -12,18 +14,18 @@ public class test {
         for (int i = 0; i < 30; i++) {
             list.add(i);
         }
-        System.out.println(list.toString());*/
-       // boolean contains = list.contains(8);
-       // System.out.println("contains = " + contains);
+        System.out.println(list.toString());
+        boolean contains = list.contains(8);
+        System.out.println("contains = " + contains);
 
-       // int i = list.indexOf(4);
-       // System.out.println("i = " + i);
+        int i = list.indexOf(4);
+        System.out.println("i = " + i);
 
-        //int index = 5;
-        // int remove = list.remove(index);
-       // System.out.println("remove = " + remove);
+        int index = 5;
+         int remove = list.remove(index);
+        System.out.println("remove = " + remove);*/
 
-        MyArrayList<Person> persons=new MyArrayList<>();
+       /* MyArrayList<Person> persons=new MyArrayList<>();
 		persons.add(new Person(10, "Jack"));
 		persons.add(new Person(15, "Rose"));
 		//persons.add(null);
@@ -32,6 +34,14 @@ public class test {
 
 		persons.remove(0);
         System.out.println(persons.toString());
+*/
+        MyList<Integer> list=new MyArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            list.add(i);
+        }
 
+        for (int i = 0; i < 50; i++) {
+            list.remove(0);
+        }
     }
 }

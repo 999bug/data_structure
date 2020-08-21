@@ -87,11 +87,13 @@ public class MyArrayList<E> extends AbstractList<E> {
         checkIndex(index);
 
         E old = array[index];
-        for (int i = index; i < size; i++) {
-            array[i] = array[i + 1];
+        for (int i = index+1; i < size; i++) {
+            array[i-1] = array[i ];
         }
         //如果是对象，把对象的引用置为空
         array[--size] = null;
+        //缩容
+        trim();
         return old;
     }
 
@@ -123,11 +125,32 @@ public class MyArrayList<E> extends AbstractList<E> {
         return ELEMENT_NOT_FOUND;
     }
 
+    /**
+     * 缩容
+     */
+    private void trim() {
+        int oldCapacity=array.length;
+        int newCapacity=oldCapacity>>2;
+
+        //如果容量大于 旧的容量 的 1/4 或者旧的容量小于 默认容量 直接返回
+        if (size>newCapacity||oldCapacity<=DEFFAUT_CAPACITY){
+            return;
+        }
+
+        E[] newArray=(E[])new Object[newCapacity];
+
+        //复制数组
+        if (size >= 0) {
+            System.arraycopy(array, 0, newArray, 0, size);
+        }
+        array=newArray;
+        System.out.println(oldCapacity + "缩容为" + newCapacity);
+    }
 
     /**
      * 扩容
      */
-    public void ensureCapacity(int capacity) {
+    private void ensureCapacity(int capacity) {
         int oldCapacity = array.length;
         if (oldCapacity >= capacity) {
             return;
