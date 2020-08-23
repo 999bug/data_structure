@@ -3,14 +3,12 @@ package com.ncst.linearlist.linkedlist;
 /**
  * @Date 2020/8/21 10:34
  * @Author by LiShiYan
- * @Descaption
+ * @Descaption 双向链表的结点
  */
 public class Node<E> {
     public E element;
     public Node<E> pre;
     public Node<E> next;
-
-
 
     public Node( Node<E> pre, E element,Node<E> next) {
         this.element = element;
