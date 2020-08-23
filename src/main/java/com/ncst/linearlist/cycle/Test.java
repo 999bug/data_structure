@@ -10,7 +10,7 @@ import com.ncst.utils.ListT;
  */
 public class Test {
     public static void main(String[] args) {
-        ListT.testList(new MySingleCycleLinkedList<>());
+        ListT.testList(new MyCycleLinkedList<>());
     }
     public static void testList(MyList<Integer> list) {
         list.add(11);
