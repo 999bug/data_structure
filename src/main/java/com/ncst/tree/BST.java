@@ -3,6 +3,8 @@ package com.ncst.tree;
 import com.ncst.tree.printer.BinaryTreeInfo;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * @Date 2020/8/24 22:14
@@ -87,11 +89,115 @@ public class BST<E> implements BinaryTreeInfo {
      * 返回值小于于0，代表e1小于e2
      */
     private int compare(E e1, E e2) {
-        if (comparator !=null){
-            return comparator.compare(e1,e2);
+        if (comparator != null) {
+            return comparator.compare(e1, e2);
         }
-        return ((Comparable<E>)e1).compareTo(e2);
+        return ((Comparable<E>) e1).compareTo(e2);
     }
+
+    /**
+     * 前序遍历
+     *
+     * @param visitor 要以什么形式显示结果
+     */
+    public void preOrder(Visitor<E> visitor) {
+        if (visitor == null) {
+            return;
+        }
+        preOrder(root, visitor);
+    }
+
+    private void preOrder(Node<E> node, Visitor<E> visitor) {
+        //递归结束条件
+        if (node == null || visitor.stop) {
+            return;
+        }
+
+        visitor.stop = visitor.visit(node.element);
+        preOrder(node.left, visitor);
+        preOrder(node.right, visitor);
+    }
+
+    /**
+     * 中序遍历
+     *
+     * @param visitor 要以什么形式显示结果
+     */
+    public void inOrder(Visitor<E> visitor) {
+        if (visitor == null) {
+            return;
+        }
+        inOrder(root, visitor);
+    }
+
+    private void inOrder(Node<E> node, Visitor<E> visitor) {
+        //递归结束条件
+        if (node == null || visitor.stop) {
+            return;
+        }
+
+        preOrder(node.left, visitor);
+        //此处的visitor.stop 控制打印结束
+        if (visitor.stop) {
+            return;
+        }
+        visitor.stop = visitor.visit(node.element);
+        preOrder(node.right, visitor);
+    }
+
+    /**
+     * 后序遍历
+     *
+     * @param visitor 要以什么形式显示结果
+     */
+    public void postOrder(Visitor<E> visitor) {
+        if (visitor == null) {
+            return;
+        }
+        postOrder(root, visitor);
+    }
+
+    private void postOrder(Node<E> node, Visitor<E> visitor) {
+        //递归结束条件
+        if (node == null || visitor.stop) {
+            return;
+        }
+
+        preOrder(node.left, visitor);
+        preOrder(node.right, visitor);
+        //此处的visitor.stop 控制打印结束
+        if (visitor.stop) {
+            return;
+        }
+        visitor.stop = visitor.visit(node.element);
+    }
+
+    /**
+     * 层序遍历
+     *
+     * @param visitor
+     */
+    public void levelOrder(Visitor<E> visitor) {
+        if (root == null || visitor == null) {
+            return;
+        }
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            Node<E> poll = queue.poll();
+            if (visitor.visit(poll.element)) {
+                return;
+            }
+            if (poll.right != null) {
+                queue.offer(poll.right);
+            }
+
+            if (poll.left != null) {
+                queue.offer(poll.left);
+            }
+        }
+    }
+
 
     private void elementNotNullCheck(E element) {
         if (element == null) {
@@ -106,17 +212,44 @@ public class BST<E> implements BinaryTreeInfo {
 
     @Override
     public Object left(Object node) {
-        return((Node<E>)node).left;
+        return ((Node<E>) node).left;
     }
 
     @Override
     public Object right(Object node) {
-        return ((Node<E>)node).right;
+        return ((Node<E>) node).right;
     }
 
     @Override
     public Object string(Object node) {
-        return ((Node<E>)node).element;
+        return ((Node<E>) node).element;
+    }
+
+    /**
+     * 自己实现的遍历树形结构
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        toString(root, sb, "");
+        return sb.toString();
+    }
+
+    private void toString(Node<E> node, StringBuilder sb, String prefix) {
+        if (node == null) {
+            return;
+        }
+
+        toString(node.left, sb, prefix + "L---");
+        sb.append(prefix).append(node.element).append("\n");
+        toString(node.right, sb, prefix + "R---");
+    }
+
+    public static abstract class Visitor<E> {
+        boolean stop;
+
+        public abstract boolean visit(E element);
     }
 
     private static class Node<E> {

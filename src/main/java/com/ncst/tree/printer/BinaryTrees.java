@@ -19,12 +19,16 @@ public final class BinaryTrees {
 	}
 
 	public static void print(BinaryTreeInfo tree, PrintStyle style) {
-		if (tree == null || tree.root() == null) return;
+		if (tree == null || tree.root() == null) {
+			return;
+		}
 		printer(tree, style).print();
 	}
 
 	public static void println(BinaryTreeInfo tree, PrintStyle style) {
-		if (tree == null || tree.root() == null) return;
+		if (tree == null || tree.root() == null) {
+			return;
+		}
 		printer(tree, style).println();
 	}
 
@@ -33,12 +37,16 @@ public final class BinaryTrees {
 	}
 
 	public static String printString(BinaryTreeInfo tree, PrintStyle style) {
-		if (tree == null || tree.root() == null) return null;
+		if (tree == null || tree.root() == null) {
+			return null;
+		}
 		return printer(tree, style).printString();
 	}
 
 	private static Printer printer(BinaryTreeInfo tree, PrintStyle style) {
-		if (style == PrintStyle.INORDER) return new InorderPrinter(tree);
+		if (style == PrintStyle.INORDER) {
+			return new InorderPrinter(tree);
+		}
 		return new LevelOrderPrinter(tree);
 	}
 

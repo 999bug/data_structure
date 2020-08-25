@@ -2,7 +2,9 @@ package com.ncst.tree.printer;
 
 public class Strings {
 	public static String repeat(String string, int count) {
-		if (string == null) return null;
+		if (string == null) {
+			return null;
+		}
 		
 		StringBuilder builder = new StringBuilder();
 		while (count-- > 0) {

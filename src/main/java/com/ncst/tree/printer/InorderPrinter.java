@@ -26,6 +26,7 @@ public class InorderPrinter extends Printer {
 	private static String leftAppend;
 	private static String blankAppend;
 	private static String lineAppend;
+
 	static {
 		int length = 2;
 		rightAppend = "┌" + Strings.repeat("─", length);
