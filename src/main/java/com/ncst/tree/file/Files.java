@@ -4,6 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
+/**
+ * @author hp
+ */
 public class Files {
 	
 	public static void writeToFile(String filePath, Object data) {
@@ -11,7 +14,9 @@ public class Files {
 	}
 	
 	public static void writeToFile(String filePath, Object data, boolean append) {
-		if (filePath == null || data == null) return;
+		if (filePath == null || data == null) {
+			return;
+		}
 		
 		try {
 			File file = new File(filePath);

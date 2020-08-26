@@ -1,5 +1,6 @@
 package com.ncst.tree;
 
+import com.ncst.linearlist.linkedlist.Node;
 import com.ncst.tree.comparator.PersonCmpForAge;
 import com.ncst.tree.file.Files;
 import com.ncst.tree.pojo.Person;
@@ -16,10 +17,52 @@ import java.util.Comparator;
 public class Test {
 
     public static void main(String[] args) {
-        test5();
+        test8();
     }
 
-    static  void test5(){
+
+    static void test8() {
+        Integer[] data = new Integer[]{
+                7, 4, 9, 2, 5, 8, 11, 3, 12, 1
+        };
+
+        BST<Integer> bst = new BST<>();
+        for (Integer datum : data) {
+            bst.add(datum);
+        }
+        BinaryTrees.println(bst);
+       bst.remove(7);
+      // bst.remove(8);
+        System.out.println("=================================");
+        BinaryTrees.println(bst);
+    }
+    static void test7() {
+        Integer[] data = new Integer[]{
+                7, 4, 9, 2, 5
+        };
+
+        BST<Integer> bst = new BST<>();
+        for (Integer datum : data) {
+            bst.add(datum);
+        }
+        BinaryTrees.println(bst);
+        System.out.println(bst.isComplete());
+    }
+
+    static void test6() {
+        Integer[] data = new Integer[]{
+                7, 4, 9, 2, 5, 8, 11, 3, 12, 1
+        };
+
+        BST<Integer> bst = new BST<>();
+        for (Integer datum : data) {
+            bst.add(datum);
+        }
+        BinaryTrees.println(bst);
+        System.out.println(bst.heightForLevelOrder());
+    }
+
+    static void test5() {
         Integer[] data = new Integer[]{
                 7, 4, 9, 2, 5, 8, 11, 3, 12, 1
         };
@@ -40,6 +83,7 @@ public class Test {
         });
         System.out.println();
     }
+
     /**
      * 测试前中后序遍历
      */

@@ -1,5 +1,8 @@
 package com.ncst.tree.pojo;
 
+/**
+ * @author hp
+ */
 public class Person implements Comparable<Person> {
 	private int age;
 	private String name;
