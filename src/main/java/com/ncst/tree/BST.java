@@ -61,9 +61,14 @@ public class BST<E> extends BinaryTree<E> {
                 node.parent.right = replacement;
             }
 
+            // 删除节点之后的处理
+            afterRemove(node);
         } else if (node.parent == null) {
             //node 是叶子结点并且是根节点
             root = null;
+
+            // 删除节点之后的处理
+            afterRemove(node);
         } else {
             //node 是叶子节点，但不是根节点
             if (node == node.parent.left) {
@@ -72,8 +77,12 @@ public class BST<E> extends BinaryTree<E> {
                 // node == node.parent.right
                 node.parent.right = null;
             }
+            // 删除节点之后的处理
+            afterRemove(node);
         }
     }
+
+    protected void afterRemove(Node<E> node) { }
 
     private Node<E> node(E element) {
         Node<E> node = root;
@@ -93,7 +102,7 @@ public class BST<E> extends BinaryTree<E> {
 
 
     public boolean contains(E element) {
-        return node(element)!=null;
+        return node(element) != null;
     }
 
 
@@ -102,8 +111,11 @@ public class BST<E> extends BinaryTree<E> {
 
         // 添加第一个节点
         if (root == null) {
-            root = new Node<>(element, null);
+            root = createNode(element, null);
             size++;
+
+            // 新添加节点之后的处理
+            afterAdd(root);
             return;
         }
 
@@ -126,13 +138,20 @@ public class BST<E> extends BinaryTree<E> {
         } while (node != null);
 
         // 看看插入到父节点的哪个位置
-        Node<E> newNode = new Node<>(element, parent);
+        Node<E> newNode = createNode(element, parent);
         if (cmp > 0) {
             parent.right = newNode;
         } else {
             parent.left = newNode;
         }
         size++;
+
+        // 新添加节点之后的处理
+        afterAdd(newNode);
+    }
+
+    protected void afterAdd(Node<E> node) {
+
     }
 
     /**

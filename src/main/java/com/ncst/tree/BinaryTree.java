@@ -24,6 +24,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         size = 0;
     }
 
+
     /**
      * 前序遍历
      *
@@ -35,6 +36,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         }
         preOrder(root, visitor);
     }
+
 
     private void preOrder(Node<E> node, Visitor<E> visitor) {
         //递归结束条件
@@ -207,6 +209,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         return heightForRecursion(root);
     }
 
+    protected Node<E> createNode(E element, Node<E> parent) {
+        return new Node<>(element, parent);
+    }
+
     private int heightForRecursion(Node<E> node) {
         if (node == null) {
             return 0;
@@ -354,5 +360,14 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         public boolean hasTwoChildren() {
             return left != null && right != null;
         }
+
+        public boolean isLeftChild(){
+            return parent!=null&&this==parent.left;
+        }
+
+        public boolean isLRightChild(){
+            return parent!=null&&this==parent.right;
+        }
+
     }
 }

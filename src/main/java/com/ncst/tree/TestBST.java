@@ -14,7 +14,7 @@ import java.util.Comparator;
  * @Author by LiShiYan
  * @Descaption
  */
-public class Test {
+public class TestBST {
 
     public static void main(String[] args) {
         test8();
