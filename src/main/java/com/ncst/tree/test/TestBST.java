@@ -1,6 +1,7 @@
-package com.ncst.tree;
+package com.ncst.tree.test;
 
 import com.ncst.linearlist.linkedlist.Node;
+import com.ncst.tree.BST;
 import com.ncst.tree.comparator.PersonCmpForAge;
 import com.ncst.tree.file.Files;
 import com.ncst.tree.pojo.Person;
@@ -9,11 +10,12 @@ import com.ncst.tree.printer.BinaryTrees;
 
 import java.util.Comparator;
 
-/**
+/*
  * @Date 2020/8/24 22:39
  * @Author by LiShiYan
  * @Descaption
  */
+
 public class TestBST {
 
     public static void main(String[] args) {
@@ -31,11 +33,12 @@ public class TestBST {
             bst.add(datum);
         }
         BinaryTrees.println(bst);
-       bst.remove(7);
-      // bst.remove(8);
+        bst.remove(7);
+        // bst.remove(8);
         System.out.println("=================================");
         BinaryTrees.println(bst);
     }
+
     static void test7() {
         Integer[] data = new Integer[]{
                 7, 4, 9, 2, 5
@@ -87,6 +90,7 @@ public class TestBST {
     /**
      * 测试前中后序遍历
      */
+
     static void test4() {
         Integer[] data = new Integer[]{
                 7, 4, 9, 2, 1
@@ -134,9 +138,7 @@ public class TestBST {
         System.out.println();
     }
 
-    /**
-     * 测试到哪个数字停止遍历
-     */
+
     static void test9() {
         Integer[] data = new Integer[]{
                 7, 4, 9, 2, 5, 8, 11, 3, 12, 1
@@ -177,7 +179,7 @@ public class TestBST {
 
     }
 
-    /**
+    /*
      * 测试把输出结果保存到本地
      */
     static void test2() {

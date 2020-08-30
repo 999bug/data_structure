@@ -1,16 +1,13 @@
-/*
-package com.tree;
+package com.tree.com.mj;
+
+import com.tree.com.mj.printer.BinaryTrees;
+import com.tree.com.mj.tree.AVLTree;
+import com.tree.com.mj.tree.BST;
+import com.tree.com.mj.tree.RBTree;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mj.file.Files;
-import com.mj.printer.BinaryTreeInfo;
-import com.mj.printer.BinaryTrees;
-import com.mj.tree.AVLTree;
-import com.mj.tree.BST;
-import com.mj.tree.BinaryTree;
-import com.mj.tree.BinaryTree.Visitor;
 
 @SuppressWarnings("unused")
 public class Main {
@@ -67,11 +64,42 @@ public class Main {
 			avl.remove(data.get(i));
 		}
 	}
+
+	static void test3() {
+		Integer data[] = new Integer[] {
+				55, 87, 56, 74, 96, 22, 62, 20, 70, 68, 90, 50
+		};
+		
+		RBTree<Integer> rb = new RBTree<>();
+		for (int i = 0; i < data.length; i++) {
+			rb.add(data[i]);
+			System.out.println("【" + data[i] + "】");
+			BinaryTrees.println(rb);
+			System.out.println("---------------------------------------");
+		}
+	}
+
+	static void test4() {
+		Integer data[] = new Integer[] {
+				55, 87, 56, 74, 96, 22, 62, 20, 70, 68, 90, 50
+		};
+		
+		RBTree<Integer> rb = new RBTree<>();
+		for (int i = 0; i < data.length; i++) {
+			rb.add(data[i]);
+		}
+
+		BinaryTrees.println(rb);
+
+		/*for (int i = 0; i < data.length; i++) {
+			rb.remove(data[i]);
+			System.out.println("---------------------------------------");
+			System.out.println("【" + data[i] + "】");
+			BinaryTrees.println(rb);
+		}*/
+	}
 	
 	public static void main(String[] args) {
 		test1();
-		
-		
 	}
 }
-*/

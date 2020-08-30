@@ -1,5 +1,7 @@
-package com.ncst.tree;
+package com.ncst.tree.test;
 
+import com.ncst.tree.AvlTree;
+import com.ncst.tree.BST;
 import com.ncst.tree.printer.BinaryTrees;
 import com.ncst.utils.Task;
 import com.ncst.utils.Times;
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public class TestAVL {
     public static void main(String[] args) {
-        test2();
+        test3();
     }
 
     static void test3() {

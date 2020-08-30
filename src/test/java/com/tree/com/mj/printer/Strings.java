@@ -1,4 +1,4 @@
-package com.ncst.tree.printer;
+package com.tree.com.mj.printer;
 
 public class Strings {
 	public static String repeat(String string, int count) {

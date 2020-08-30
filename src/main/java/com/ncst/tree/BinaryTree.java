@@ -2,7 +2,6 @@ package com.ncst.tree;
 
 import com.ncst.tree.printer.BinaryTreeInfo;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -14,6 +13,10 @@ import java.util.Queue;
 public class BinaryTree<E> implements BinaryTreeInfo {
     protected int size;
     protected Node<E> root;
+
+    public int size() {
+        return size;
+    }
 
     public boolean isEmpty() {
         return size == 0;
@@ -209,10 +212,6 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         return heightForRecursion(root);
     }
 
-    protected Node<E> createNode(E element, Node<E> parent) {
-        return new Node<>(element, parent);
-    }
-
     private int heightForRecursion(Node<E> node) {
         if (node == null) {
             return 0;
@@ -222,85 +221,8 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         return 1 + Math.max(a, b);
     }
 
-
-    private void elementNotNullCheck(E element) {
-        if (element == null) {
-            throw new IllegalArgumentException("element must not null");
-        }
-    }
-
-    @Override
-    public Object root() {
-        return root;
-    }
-
-    @Override
-    public Object left(Object node) {
-        return ((Node<E>) node).left;
-    }
-
-    @Override
-    public Object right(Object node) {
-        return ((Node<E>) node).right;
-    }
-
-    @Override
-    public Object string(Object node) {
-        return ((Node<E>) node).element;
-    }
-
-    /**
-     * 自己实现的遍历树形结构
-     *
-     * @return
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        toString(root, sb, "");
-        return sb.toString();
-    }
-
-    private void toString(Node<E> node, StringBuilder sb, String prefix) {
-        if (node == null) {
-            return;
-        }
-
-        toString(node.left, sb, prefix + "L---");
-        sb.append(prefix).append(node.element).append("\n");
-        toString(node.right, sb, prefix + "R---");
-    }
-
-    public static abstract class Visitor<E> {
-        boolean stop;
-
-        public abstract boolean visit(E element);
-    }
-
-    /**
-     * 后继节点
-     *
-     * @param node
-     * @return
-     */
-    protected Node<E> successor(Node<E> node) {
-        if (node == null) {
-            return null;
-        }
-
-        //后继节点在右子树当中（right.left.left.left...
-        Node<E> p = node.right;
-        if (p != null) {
-            while (p.left != null) {
-                p = p.left;
-            }
-            return p;
-        }
-        // 从父节点、祖父节点中寻找后继节点
-        while (node.parent != null && node == node.parent.right) {
-            node = node.parent;
-        }
-        return node.parent;
+    protected Node<E> createNode(E element, Node<E> parent) {
+        return new Node<>(element, parent);
     }
 
     /**
@@ -332,6 +254,47 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         return node.parent;
     }
 
+    /**
+     * 后继节点
+     *
+     * @param node
+     * @return
+     */
+    protected Node<E> successor(Node<E> node) {
+        if (node == null) {
+            return null;
+        }
+
+        //后继节点在右子树当中（right.left.left.left...
+        Node<E> p = node.right;
+        if (p != null) {
+            while (p.left != null) {
+                p = p.left;
+            }
+            return p;
+        }
+        // 从父节点、祖父节点中寻找后继节点
+        while (node.parent != null && node == node.parent.right) {
+            node = node.parent;
+        }
+        return node.parent;
+    }
+
+    /**
+     * 自己实现的遍历树形结构
+     *
+     * @return
+     */
+    public static abstract class Visitor<E> {
+        boolean stop;
+
+        /**
+         * @return 如果返回true，就代表停止遍历
+         */
+        public abstract boolean visit(E element);
+    }
+
+
     protected static class Node<E> {
         E element;
         Node<E> left;
@@ -361,13 +324,46 @@ public class BinaryTree<E> implements BinaryTreeInfo {
             return left != null && right != null;
         }
 
-        public boolean isLeftChild(){
-            return parent!=null&&this==parent.left;
+        public boolean isLeftChild() {
+            return parent != null && this == parent.left;
         }
 
-        public boolean isLRightChild(){
-            return parent!=null&&this==parent.right;
+        public boolean isRightChild() {
+            return parent != null && this == parent.right;
         }
 
+        /**
+         * @return 兄弟结点
+         */
+        public Node<E> sibling() {
+            if (isLeftChild()) {
+                return parent.right;
+            }
+            if (isRightChild()) {
+                return parent.left;
+            }
+            //没有兄弟结点
+            return null;
+        }
+    }
+
+    @Override
+    public Object root() {
+        return root;
+    }
+
+    @Override
+    public Object left(Object node) {
+        return ((Node<E>) node).left;
+    }
+
+    @Override
+    public Object right(Object node) {
+        return ((Node<E>) node).right;
+    }
+
+    @Override
+    public Object string(Object node) {
+        return node;
     }
 }

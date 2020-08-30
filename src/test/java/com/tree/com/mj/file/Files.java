@@ -1,4 +1,4 @@
-package com.ncst.tree.file;
+package com.tree.com.mj.file;
 
 import java.io.BufferedWriter;
 import java.io.File;
