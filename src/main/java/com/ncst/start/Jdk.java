@@ -1,9 +1,6 @@
 package com.ncst.start;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @Date 2020/8/20 17:21
@@ -18,5 +15,6 @@ public class Jdk {
         String s="sss";
         char[] chars = s.toCharArray();
         java.util.Queue queue;
+        HashMap<Integer,Integer> map=new HashMap<>();
     }
 }

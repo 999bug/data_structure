@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class TestAVL {
     public static void main(String[] args) {
-        test3();
+        test1();
     }
 
     static void test3() {
