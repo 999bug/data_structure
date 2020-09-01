@@ -28,12 +28,12 @@ public class Offer_66_构建乘积数组 {
             int tmp = 1;
 
             //计算 B[i] 的 下三角 各元素的乘积，直接乘入 B[i]
-            //乘到 size -1 &&a[size-2]结束，因为不乘本身
+            //乘到本身的前一个元素
             for(int i = 1; i < a.length; i++) {
                 b[i] = b[i - 1] * a[i - 1];
             }
 
-            //计算上三角的乘积
+            //计算上三角的乘积 ，乘除了本身后面的元素
             for(int i = a.length - 2; i >= 0; i--) {
                 tmp *= a[i + 1];
                 b[i] *= tmp;
