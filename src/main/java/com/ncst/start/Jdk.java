@@ -16,5 +16,7 @@ public class Jdk {
         char[] chars = s.toCharArray();
         java.util.Queue queue;
         HashMap<Integer,Integer> map=new HashMap<>();
+        TreeSet<Integer> set=new TreeSet<>();
+
     }
 }
