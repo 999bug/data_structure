@@ -2,6 +2,7 @@ package com.ncst.tree.test;
 
 import com.ncst.linearlist.linkedlist.Node;
 import com.ncst.tree.BST;
+import com.ncst.tree.Visitor;
 import com.ncst.tree.comparator.PersonCmpForAge;
 import com.ncst.tree.file.Files;
 import com.ncst.tree.pojo.Person;
@@ -77,7 +78,7 @@ public class TestBST {
         System.out.println(bst);
         System.out.println("============");
         BinaryTrees.println(bst);
-        bst.preOrder(new BST.Visitor<Integer>() {
+        bst.preOrder(new Visitor<Integer>() {
             @Override
             public boolean visit(Integer element) {
                 System.out.print(" " + element);
@@ -102,7 +103,7 @@ public class TestBST {
         }
         BinaryTrees.println(bst);
 
-        bst.preOrder(new BST.Visitor<Integer>() {
+        bst.preOrder(new Visitor<Integer>() {
             @Override
             public boolean visit(Integer element) {
                 System.out.print(" " + element);
@@ -111,7 +112,7 @@ public class TestBST {
         });
         System.out.println();
 
-        bst.postOrder(new BST.Visitor<Integer>() {
+        bst.postOrder(new Visitor<Integer>() {
             @Override
             public boolean visit(Integer element) {
                 System.out.print(" " + element);
@@ -120,7 +121,7 @@ public class TestBST {
         });
         System.out.println();
 
-        bst.inOrder(new BST.Visitor<Integer>() {
+        bst.inOrder(new Visitor<Integer>() {
             @Override
             public boolean visit(Integer element) {
                 System.out.print(" " + element);
@@ -128,7 +129,7 @@ public class TestBST {
             }
         });
         System.out.println();
-        bst.levelOrder(new BST.Visitor<Integer>() {
+        bst.levelOrder(new Visitor<Integer>() {
             @Override
             public boolean visit(Integer element) {
                 System.out.print(" " + element);
@@ -150,7 +151,7 @@ public class TestBST {
         }
         BinaryTrees.println(bst);
 
-        bst.preOrder(new BST.Visitor<Integer>() {
+        bst.preOrder(new Visitor<Integer>() {
             @Override
             public boolean visit(Integer element) {
                 System.out.print(element + " ");
@@ -159,7 +160,7 @@ public class TestBST {
         });
         System.out.println();
 
-        bst.inOrder(new BST.Visitor<Integer>() {
+        bst.inOrder(new Visitor<Integer>() {
             @Override
             public boolean visit(Integer element) {
                 System.out.print(element + " ");
@@ -168,7 +169,7 @@ public class TestBST {
         });
         System.out.println();
 
-        bst.postOrder(new BST.Visitor<Integer>() {
+        bst.postOrder(new Visitor<Integer>() {
             @Override
             public boolean visit(Integer element) {
                 System.out.print(element + " ");

@@ -1,4 +1,4 @@
-package com.ncst.tree;
+package com.ncst.set.tree;
 
 import com.ncst.tree.printer.BinaryTreeInfo;
 
@@ -10,7 +10,7 @@ import java.util.Queue;
  * @Author by LiShiYan
  * @Descaption 二叉树
  */
-public class BinaryTree<E> implements BinaryTreeInfo {
+public class BinaryTree<E>  {
     protected int size;
     protected Node<E> root;
 
@@ -335,23 +335,5 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         }
     }
 
-    @Override
-    public Object root() {
-        return root;
-    }
 
-    @Override
-    public Object left(Object node) {
-        return ((Node<E>) node).left;
-    }
-
-    @Override
-    public Object right(Object node) {
-        return ((Node<E>) node).right;
-    }
-
-    @Override
-    public Object string(Object node) {
-        return node;
-    }
 }
