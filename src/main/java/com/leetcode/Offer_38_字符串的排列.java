@@ -1,21 +1,31 @@
-package com.leetcode.offer38;
+package com.leetcode;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-class Solution {
+/**
+ * 输入一个字符串，打印出该字符串中字符的所有排列。
+ * 你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
+ * https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/
+ */
+class Offer_38_字符串的排列 {
+    private static char[] c;
+    private  static List<String> res = new LinkedList<>();
+    public static void main(String[] args) {
+        String[] abcs = permutation("abc");
+        System.out.println("abcs = " + Arrays.toString(abcs));
 
-    List<String> res = new LinkedList<>();
-    char[] c;
+    }
 
-    public String[] permutation(String s) {
+    public static String[] permutation(String s) {
         c = s.toCharArray();
         dfs(0);
         return res.toArray(new String[0]);
     }
 
-    void dfs(int x) {
+    static void dfs(int x) {
         if (x == c.length - 1) {
             res.add(String.valueOf(c)); // 添加排列方案
             return;
@@ -30,7 +40,7 @@ class Solution {
         }
     }
 
-    void swap(int a, int b) {
+    static void swap(int a, int b) {
         char tmp = c[a];
         c[a] = c[b];
         c[b] = tmp;

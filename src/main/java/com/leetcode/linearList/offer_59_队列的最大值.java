@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode.linearList;
 
 
 import java.util.Deque;
@@ -8,9 +8,10 @@ import java.util.Queue;
 /**
  * @Date 2020/8/24 17:22
  * @Author by LiShiYan
- * @Descaption 队列的最大值  leetcode 剑值offer 59
+ * @Descaption 队列的最大值  leetcode 剑值offer_59
+ * https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/
  */
-public class The_max_of_Queue {
+public class offer_59_队列的最大值 {
     public static void main(String[] args) {
         MaxQueue maxQueue=new MaxQueue();
         maxQueue.push_back(10);

@@ -1,6 +1,8 @@
 package com.ncst.tree;
 
 
+import com.ncst.tree.test.TestAVL;
+
 import java.util.Comparator;
 
 /**

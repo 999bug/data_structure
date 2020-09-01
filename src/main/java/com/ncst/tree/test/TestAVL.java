@@ -16,7 +16,19 @@ import java.util.List;
  */
 public class TestAVL {
     public static void main(String[] args) {
-        test1();
+        test4();
+    }
+    static void test4() {
+        Integer[] data = new Integer[]{
+                3,9,20,15,7
+        };
+
+        AvlTree<Integer> avl = new AvlTree<>();
+        for (Integer datum : data) {
+            avl.add(datum);
+        }
+        //BinaryTrees.println(avl);
+
     }
 
     static void test3() {
