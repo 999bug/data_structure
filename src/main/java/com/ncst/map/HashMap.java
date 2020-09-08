@@ -57,25 +57,63 @@ public class HashMap<K, V> implements Map<K, V> {
             root = createNode(key, value, null);
             table[index] = root;
             size++;
-            // TODO: 2020/9/7  
+            fixAfterPut(root);
             return null;
         }
         // 添加的不是第一个节点
         // 找到父节点
         Node<K, V> parent = root;
         Node<K, V> node = root;
+
         int cmp = 0;
+        K k1 = key;
+        int h1 = hash(key);
+        Node<K, V> result = null;
+        //是否已经搜索过这个key
+        boolean searched = false;
+
         do {
-            cmp = compare(key, node.key);
             parent = node;
+            K k2 = node.key;
+            int h2 = node.hash;
+            if (h1 > h2) {
+                cmp = 1;
+            } else if (h1 < h2) {
+                cmp = -1;
+            } else if (Objects.equals(k1, k2)) {
+                cmp = 0;
+            } else if (k1 != null && k2 != null
+                    && k1 instanceof Comparable
+                    && k1.getClass() == k2.getClass()
+                    && (cmp = ((Comparable) k1).compareTo(k2)) != 0) {
+                //Comparable ==0 不认定是同一个元素
+            } else if (searched) {
+                //已经扫描了
+                cmp = System.identityHashCode(k1) - System.identityHashCode(k2);
+            } else {
+                // searched == false; 还没有扫描，然后再根据内存地址大小决定左右
+                if ((node.left != null && (result = node(node.left, k1)) != null)
+                        || (node.right != null && (result = node(node.right, k1)) != null)) {
+                    //已经存在这个key
+                    node = result;
+                    cmp = 0;
+                } else {
+                    //不存在这个key
+                    searched = true;
+                    cmp = System.identityHashCode(k1) - System.identityHashCode(k2);
+                }
+            }
+
+
             if (cmp > 0) {
                 node = node.right;
             } else if (cmp < 0) {
                 node = node.left;
             } else { // 相等
-                node.key = key;
                 V oldValue = node.value;
+                node.key = key;
                 node.value = value;
+                node.hash = h1;
                 return oldValue;
             }
         } while (node != null);
@@ -90,7 +128,7 @@ public class HashMap<K, V> implements Map<K, V> {
         size++;
 
         // 新添加节点之后的处理
-        afterPut(newNode);
+        fixAfterPut(newNode);
         return null;
     }
 
@@ -286,7 +324,46 @@ public class HashMap<K, V> implements Map<K, V> {
 
     private Node<K, V> node(K key) {
         Node<K, V> root = table[index(key)];
-        return null; // TODO: 2020/9/7
+        return root == null ? null : node(root, key);
+    }
+
+    private Node<K, V> node(Node<K, V> node, K k1) {
+        int h1 = hash(k1);
+
+        //存储查找结果
+        Node<K, V> result = null;
+        int cmp = 0;
+        while (node != null) {
+            K k2 = node.key;
+            int h2 = node.hash;
+
+            //先比较哈希值
+            if (h1 > h2) {
+                cmp = 1;
+            } else if (h1 < h2) {
+                cmp = -1;
+            } else if (Objects.equals(k1, k2)) {
+                return node;
+            }
+
+            //哈希值相等，可以比较的对象
+            else if (k1 != null && k2 != null
+                    && k1 instanceof Comparable
+                    && k1.getClass() == k2.getClass()
+                    && (cmp = ((Comparable) k1).compareTo(k2)) != 0) {
+                //cmp==0 条件不成立，只有equals 才能判断两个是否相等
+                node = cmp > 0 ? node.right : node.left;
+            }
+
+            //哈希值相等，不可以比较的对象,往右边找
+            else if (node.right != null && (result = node(node.right, k1)) != null) {
+                return result;
+            } else {
+                //往左边找
+                node = node.left;
+            }
+        }
+        return null;
     }
 
     /**
@@ -398,7 +475,7 @@ public class HashMap<K, V> implements Map<K, V> {
         return node;
     }
 
-    private void afterPut(Node<K, V> node) {
+    private void fixAfterPut(Node<K, V> node) {
         Node<K, V> parent = node.parent;
 
         // 添加的是根节点 或者 上溢到达了根节点
@@ -420,7 +497,7 @@ public class HashMap<K, V> implements Map<K, V> {
             black(parent);
             black(uncle);
             // 把祖父节点当做是新添加的节点
-            afterPut(grand);
+            fixAfterPut(grand);
             return;
         }
 
@@ -501,9 +578,7 @@ public class HashMap<K, V> implements Map<K, V> {
         return colorOf(node) == RED;
     }
 
-    private int compare(K e1, K e2) {
-        return 0;
-    }
+
 
     protected Node<K, V> createNode(K key, V value, Node<K, V> parent) {
         return new Node<>(key, value, parent);
