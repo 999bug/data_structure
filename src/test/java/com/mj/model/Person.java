@@ -36,6 +36,39 @@ public class Person implements Comparable<Person> {
 		return hashCode;
 	}
 
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Person{" +
+				"age=" + age +
+				", height=" + height +
+				", name='" + name + '\'' +
+				'}';
+	}
+
 	@Override
 	public int compareTo(Person o) {
 		return age - o.age;

@@ -39,10 +39,11 @@ public class Test {
     public static void main(String[] args) {
 
         test1();
+        ///test5(new HashMap<>());
     }
 
     static void test1() {
-        String filepath = "E:\\test\\src\\java\\util\\concurrent";
+        String filepath = "E:\\test\\src\\java\\util";
         FileInfo fileInfo = Files.read(filepath, null);
         String[] words = fileInfo.words();
 

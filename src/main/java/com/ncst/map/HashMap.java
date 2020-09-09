@@ -48,7 +48,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K key, V value) {
-        // TODO: 2020/9/7  
+        resize();
         int index = index(key);
 
         //取出index位置的红黑树结点
@@ -130,6 +130,102 @@ public class HashMap<K, V> implements Map<K, V> {
         // 新添加节点之后的处理
         fixAfterPut(newNode);
         return null;
+    }
+
+    /**
+     * 扩容
+     */
+    private void resize() {
+        //装填因子0.75
+        int factor = size / table.length;
+        if (factor <= DEFAULT_LOAD_FACTOR) {
+            return;
+        }
+        Node<K, V>[] oldTable = this.table;
+        table = new Node[oldTable.length << 1];
+
+        Queue<Node<K, V>> queue = new LinkedList<>();
+        int len = oldTable.length;
+
+        for (Node<K, V> kvNode : oldTable) {
+            if (kvNode == null) {
+                continue;
+            }
+            queue.offer(kvNode);
+            while (!queue.isEmpty()) {
+                Node<K, V> node = queue.poll();
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+
+                //挪动代码放到后面。不然会把node的parent、left、right清空
+                moveNode(node);
+            }
+        }
+    }
+
+    /**
+     * 扩容后的挪动代码
+     * @param newNode
+     */
+    private void moveNode(Node<K, V> newNode) {
+        //重置
+        newNode.parent=null;
+        newNode.right=null;
+        newNode.left=null;
+        newNode.color=RED;
+
+        int index=index(newNode);
+        //取出index 位置的红黑树的根节点
+        Node<K, V> root = table[index];
+        if (root==null){
+            root=newNode;
+            table[index]=root;
+            fixAfterPut(root);
+            return;
+        }
+        // 添加新的节点到红黑树上面
+        Node<K, V> parent = root;
+        Node<K, V> node = root;
+        int cmp = 0;
+        K k1 = newNode.key;
+        int h1 = newNode.hash;
+        do {
+            parent = node;
+            K k2 = node.key;
+            int h2 = node.hash;
+            if (h1 > h2) {
+                cmp = 1;
+            } else if (h1 < h2) {
+                cmp = -1;
+            } else if (k1 != null && k2 != null
+                    && k1 instanceof Comparable
+                    && k1.getClass() == k2.getClass()
+                    && (cmp = ((Comparable)k1).compareTo(k2)) != 0) {
+            } else {
+                cmp = System.identityHashCode(k1) - System.identityHashCode(k2);
+            }
+
+            if (cmp > 0) {
+                node = node.right;
+            } else if (cmp < 0) {
+                node = node.left;
+            }
+        } while (node != null);
+
+        // 看看插入到父节点的哪个位置
+        newNode.parent = parent;
+        if (cmp > 0) {
+            parent.right = newNode;
+        } else {
+            parent.left = newNode;
+        }
+
+        // 新添加节点之后的处理
+        fixAfterPut(newNode);
     }
 
     @Override
@@ -339,9 +435,9 @@ public class HashMap<K, V> implements Map<K, V> {
 
             //先比较哈希值
             if (h1 > h2) {
-                cmp = 1;
+                node = node.right;
             } else if (h1 < h2) {
-                cmp = -1;
+                node = node.left;
             } else if (Objects.equals(k1, k2)) {
                 return node;
             }
@@ -379,6 +475,10 @@ public class HashMap<K, V> implements Map<K, V> {
         return node.hash & (table.length - 1);
     }
 
+    /**
+     * @param key
+     * @return 扰动计算哈希值
+     */
     private int hash(K key) {
         if (key == null) {
             return 0;
@@ -579,7 +679,6 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
 
-
     protected Node<K, V> createNode(K key, V value, Node<K, V> parent) {
         return new Node<>(key, value, parent);
     }
@@ -594,6 +693,7 @@ public class HashMap<K, V> implements Map<K, V> {
         Node<K, V> parent;
 
         public Node(K key, V value, Node<K, V> parent) {
+            //扰动计算哈希值
             int hash = key == null ? 0 : key.hashCode();
             this.hash = hash ^ (hash >>> 16);
             this.key = key;
