@@ -119,7 +119,7 @@ public class HashMap<K, V> implements Map<K, V> {
         } while (node != null);
 
         // 看看插入到父节点的哪个位置
-        Node<K, V> newNode = new Node<>(key, value, parent);
+        Node<K, V> newNode = createNode(key, value, parent);
         if (cmp > 0) {
             parent.right = newNode;
         } else {
@@ -376,7 +376,7 @@ public class HashMap<K, V> implements Map<K, V> {
             }
 
             // 删除节点之后的处理
-            //  fixAfterRemove(replacement);
+             fixAfterRemove(replacement);
         } else if (node.parent == null) { // node是叶子节点并且是根节点
             table[index] = null;
         } else { // node是叶子节点，但不是根节点
@@ -387,7 +387,7 @@ public class HashMap<K, V> implements Map<K, V> {
             }
 
             // 删除节点之后的处理
-            //fixAfterRemove(node);
+            fixAfterRemove(node);
         }
 
         // 交给子类去处理
@@ -487,7 +487,7 @@ public class HashMap<K, V> implements Map<K, V> {
         return hash ^ (hash >>> 16);
     }
 
-    private void afterRemove(Node<K, V> node) {
+    private void fixAfterRemove(Node<K, V> node) {
         // 如果删除的节点是红色
         // 或者 用以取代删除节点的子节点是红色
         if (isRed(node)) {
@@ -520,7 +520,7 @@ public class HashMap<K, V> implements Map<K, V> {
                 black(parent);
                 red(sibling);
                 if (parentBlack) {
-                    afterRemove(parent);
+                    fixAfterRemove(parent);
                 }
             } else { // 兄弟节点至少有1个红色子节点，向兄弟节点借元素
                 // 兄弟节点的左边是黑色，兄弟要先旋转
@@ -550,7 +550,7 @@ public class HashMap<K, V> implements Map<K, V> {
                 black(parent);
                 red(sibling);
                 if (parentBlack) {
-                    afterRemove(parent);
+                    fixAfterRemove(parent);
                 }
             } else { // 兄弟节点至少有1个红色子节点，向兄弟节点借元素
                 // 兄弟节点的左边是黑色，兄弟要先旋转
@@ -683,7 +683,7 @@ public class HashMap<K, V> implements Map<K, V> {
         return new Node<>(key, value, parent);
     }
 
-    private static class Node<K, V> {
+    protected static class Node<K, V> {
         int hash;
         K key;
         V value;

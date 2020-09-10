@@ -1,7 +1,8 @@
-package com.mj.set;
+package com.ncst.map.set;
 
-import com.mj.map.LinkedHashMap;
-import com.mj.map.Map;
+
+import com.ncst.map.LinkedHashMap;
+import com.ncst.map.Map;
 
 public class LinkedHashSet<E> implements Set<E> {
 	private LinkedHashMap<E, Object> map = new LinkedHashMap<>();
@@ -39,6 +40,7 @@ public class LinkedHashSet<E> implements Set<E> {
 	@Override
 	public void traversal(Visitor<E> visitor) {
 		map.traversal(new Map.Visitor<E, Object>() {
+			@Override
 			public boolean visit(E key, Object value) {
 				return visitor.visit(key);
 			}

@@ -1,4 +1,4 @@
-package com.mj.set;
+package com.ncst.map.set;
 
 import com.mj.map.HashMap;
 import com.mj.map.Map;

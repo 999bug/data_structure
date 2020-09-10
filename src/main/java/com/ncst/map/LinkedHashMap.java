@@ -1,4 +1,4 @@
-package com.mj.map;
+package com.ncst.map;
 
 import java.util.Objects;
 
@@ -18,7 +18,9 @@ public class LinkedHashMap<K, V> extends HashMap<K, V> {
 	public boolean containsValue(V value) {
 		LinkedNode<K, V> node = first;
 		while (node != null) {
-			if (Objects.equals(value, node.value)) return true;
+			if (Objects.equals(value, node.value)) {
+				return true;
+			}
 			node = node.next;
 		}
 		return false;
@@ -26,10 +28,14 @@ public class LinkedHashMap<K, V> extends HashMap<K, V> {
 	
 	@Override
 	public void traversal(Visitor<K, V> visitor) {
-		if (visitor == null) return;
+		if (visitor == null) {
+			return;
+		}
 		LinkedNode<K, V> node = first;
 		while (node != null) {
-			if (visitor.visit(node.key, node.value)) return;
+			if (visitor.visit(node.key, node.value)) {
+				return;
+			}
 			node = node.next;
 		}
 	}

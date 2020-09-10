@@ -1,4 +1,4 @@
-package com.mj.set;
+package com.ncst.map.set;
 
 public interface Set<E> {
 	int size();

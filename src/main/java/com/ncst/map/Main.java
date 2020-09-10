@@ -1,20 +1,31 @@
-package com.mj;
+package com.ncst.map;
 
-import java.util.List;
 
-import com.mj.Times.Task;
-import com.mj.file.FileInfo;
-import com.mj.file.Files;
-import com.mj.map.HashMap;
-import com.mj.map.LinkedHashMap;
-import com.mj.map.Map;
-import com.mj.map.Map.Visitor;
-import com.mj.map.TreeMap;
-import com.mj.model.Key;
-import com.mj.model.SubKey1;
-import com.mj.model.SubKey2;
+import com.ncst.map.model.Key;
+import com.ncst.map.model.SubKey1;
+import com.ncst.map.model.SubKey2;
+import com.ncst.set.file.FileInfo;
+import com.ncst.set.file.Files;
+import com.ncst.utils.Task;
+import com.ncst.utils.Times;
 
 public class Main {
+	public static void main(String[] args) {
+		test1();
+		test2(new HashMap<>());
+		test3(new HashMap<>());
+		test4(new HashMap<>());
+		test5(new HashMap<>());
+
+
+//		test2(new LinkedHashMap<>());
+//		test3(new LinkedHashMap<>());
+//		test4(new LinkedHashMap<>());
+//		test5(new LinkedHashMap<>());
+
+		java.util.HashMap<String, String> map;
+		java.util.LinkedHashMap<String, String> map2;
+	}
 	
 	static void test1Map(Map<String, Integer> map, String[] words) {
 		Times.test(map.getClass().getName(), new Task() {
@@ -40,7 +51,7 @@ public class Main {
 	}
 	
 	static void test1() {
-		String filepath = "C:\\Users\\MJ Lee\\Desktop\\src\\java\\util\\concurrent";
+		String filepath = "E:\\test\\src\\java\\util\\concurrent";
 		FileInfo fileInfo = Files.read(filepath, null);
 		String[] words = fileInfo.words();
 
@@ -115,12 +126,7 @@ public class Main {
 		Asserts.test(map.get(new Key(6)) == null);
 		Asserts.test(map.get(new Key(7)) == null);
 		Asserts.test(map.get(new Key(8)) == 8);
-		map.traversal(new Visitor<Object, Integer>() {
-			public boolean visit(Object key, Integer value) {
-				System.out.println(key + "_" + value);
-				return false;
-			}
-		});
+		map.print();
 	}
 	
 	static void test5(HashMap<Object, Integer> map) {
@@ -133,21 +139,6 @@ public class Main {
 		Asserts.test(map.size() == 20);
 	}
 	
-	public static void main(String[] args) { 
-//		test1();
-//		test2(new HashMap<>());
-//		test3(new HashMap<>());
-//		test4(new HashMap<>());
-//		test5(new HashMap<>());
-		
-		test1();
-		test2(new LinkedHashMap<>());
-		test3(new LinkedHashMap<>());
-		test4(new LinkedHashMap<>());
-		test5(new LinkedHashMap<>());
-		
-		java.util.HashMap<String, String> map;
-		java.util.LinkedHashMap<String, String> map2;
-	}
+
 
 }
