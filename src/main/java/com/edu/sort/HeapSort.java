@@ -1,11 +1,19 @@
 package com.edu.sort;
 
+import java.util.Arrays;
+
 /**
  * @Date 2020/6/9 9:13
  * @Author by LiShiYan
  * @Description 堆排序
  */
 public class HeapSort {
+   static int[] arr = new int[]{1, 4, 2, 7, 9, 8, 3, 6};
+    public static void main(String[] args) {
+        HeapSort sort=new HeapSort();
+        sort.heapSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
 
     /**
      * 堆排序，根据最大堆，最小堆选择

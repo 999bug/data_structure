@@ -1,7 +1,8 @@
 package com.ncst.map.set;
 
-import com.mj.map.HashMap;
-import com.mj.map.Map;
+
+import com.ncst.map.HashMap;
+import com.ncst.map.Map;
 
 public class HashSet<E> implements Set<E> {
 	private HashMap<E, Object> map = new HashMap<>();
@@ -39,6 +40,7 @@ public class HashSet<E> implements Set<E> {
 	@Override
 	public void traversal(Visitor<E> visitor) {
 		map.traversal(new Map.Visitor<E, Object>() {
+			@Override
 			public boolean visit(E key, Object value) {
 				return visitor.visit(key);
 			}
