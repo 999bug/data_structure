@@ -58,10 +58,12 @@ public class Main {
 		Integer[] data = {51, 30, 39, 92, 74, 25, 16, 93, 
 				91, 19, 54, 47, 73, 62, 76, 63, 35, 18, 
 				90, 6, 65, 49, 3, 26, 61, 21, 48};
+
 		for (int i = 0; i < data.length; i++) {
 			if (heap.size() < k) { // 前k个数添加到小顶堆
 				heap.add(data[i]); // logk
-			} else if (data[i] > heap.get()) { // 如果是第k + 1个数，并且大于堆顶元素
+			} else if (data[i] > heap.get()) {
+				// 如果是第k + 1个数，并且大于堆顶元素
 				heap.replace(data[i]); // logk
 			}
 		}

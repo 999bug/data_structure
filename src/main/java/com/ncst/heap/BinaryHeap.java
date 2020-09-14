@@ -3,6 +3,7 @@ package com.ncst.heap;
 
 import com.ncst.heap.printer.BinaryTreeInfo;
 
+import javax.swing.text.DefaultFormatterFactory;
 import java.util.Comparator;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Comparator;
  * @Author by LiShiYan
  * @Descaption
  */
+@SuppressWarnings("unchecked")
 public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 
     private E[] elements;
@@ -19,10 +21,34 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
         super(comparator);
 
         //如果传入的数组为空，默认初始化
+        if (elements == null || elements.length == 0) {
+            this.elements = (E[]) new Object[DEFAULT_CAPACITY];
+        } else {
+            size = elements.length;
+            int capacity = Math.max(elements.length, DEFAULT_CAPACITY);
+            this.elements = (E[]) new Object[capacity];
+            //深拷贝
+            System.arraycopy(elements, 0, this.elements, 0, elements.length);
+            /*for (int i = 0; i < elements.length; i++) {
+				this.elements[i] = elements[i];
+			}*/
+            heapify();
+        }
+    }
 
-        this.elements = (E[]) new Object[DEFAULT_CAPACITY];
+    /**
+     * 批量建堆
+     */
+    private void heapify() {
 
-
+        //自上而下的上溢
+       /* for (int i = 1; i <size; i++) {
+            siftUp(i);
+        }*/
+        //自下而上的上溢
+        for (int i = (size >> 1); i >= 0; i--) {
+            siftDown(i);
+        }
     }
 
     public BinaryHeap(E[] elements) {
@@ -149,30 +175,41 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
             int rightIndex = childIndex + 1;
 
             //选出左右子结点最大的那个
-            if (rightIndex<size&&compare(elements[rightIndex],child)>0){
+            if (rightIndex < size && compare(elements[rightIndex], child) > 0) {
                 //将右子节 赋值到左子节点
-                childIndex=rightIndex;
-                child=elements[childIndex];
+                childIndex = rightIndex;
+                child = elements[childIndex];
             }
 
             //父节点 》 孩子结点 退出循环
-            if (compare(element,child)>=0){
+            if (compare(element, child) >= 0) {
                 break;
             }
 
             //父节点小于 孩子结点
 
             //将子节点存放到index 位置
-            elements[index]=child;
-            index=childIndex;
+            elements[index] = child;
+            index = childIndex;
         }
-        elements[index]=element;
+        elements[index] = element;
 
     }
 
     @Override
     public E replace(E element) {
-        return null;
+        elementNotNullCheck(element);
+        E root = null;
+        if (size == 0) {
+            elements[0] = element;
+            size++;
+        } else {
+            root = elements[0];
+            elements[0] = element;
+
+            siftDown(0);
+        }
+        return root;
     }
 
     @Override

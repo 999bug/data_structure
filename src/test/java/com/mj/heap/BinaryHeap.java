@@ -1,5 +1,6 @@
 package com.mj.heap;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 import com.mj.printer.BinaryTreeInfo;
@@ -24,9 +25,11 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 			size = elements.length;
 			int capacity = Math.max(elements.length, DEFAULT_CAPACITY);
 			this.elements = (E[]) new Object[capacity];
-			for (int i = 0; i < elements.length; i++) {
+			System.arraycopy(elements, 0, this.elements, 0, elements.length);
+			/*for (int i = 0; i < elements.length; i++) {
 				this.elements[i] = elements[i];
-			}
+			}*/
+
 			heapify();
 		}
 	}
