@@ -1,5 +1,8 @@
 package com.ncst2.sort;
 
+/**
+ * @author hp
+ */
 public class CountingSort extends Sort<Integer> {
 
 	@Override

@@ -1,5 +1,6 @@
 package com.ncst2.sort;
 
+import com.ncst2.sort.cmp.SelectSort;
 import com.sun.org.apache.xml.internal.utils.res.XResources_es;
 
 import java.text.DecimalFormat;
@@ -35,10 +36,9 @@ public abstract class Sort<T extends Comparable<T>> implements Comparable<Sort<T
     /**
      * @param i1
      * @param i2
-     * @return
-     *      返回值等于0，代表 array[i1] == array[i2]
-     * 	    返回值小于0，代表 array[i1] < array[i2]
-     * 	    返回值大于0，代表 array[i1] > array[i2]
+     * @return 返回值等于0，代表 array[i1] == array[i2]
+     * 返回值小于0，代表 array[i1] < array[i2]
+     * 返回值大于0，代表 array[i1] > array[i2]
      */
     protected int cmp(int i1, int i2) {
         cmpCount++;
@@ -101,6 +101,7 @@ public abstract class Sort<T extends Comparable<T>> implements Comparable<Sort<T
         }
         return fmt.format(number / 100000000.0) + "亿";
     }
+
     private boolean isStable() {
         if (this instanceof RadixSort) {
             return true;
@@ -109,7 +110,9 @@ public abstract class Sort<T extends Comparable<T>> implements Comparable<Sort<T
             return true;
         }
 //        if (this instanceof ShellSort) return false;
-//        if (this instanceof SelectionSort) return false;
+        if (this instanceof SelectSort) {
+            return false;
+        }
         Student[] students = new Student[20];
         for (int i = 0; i < students.length; i++) {
             students[i] = new Student(i * 10, 10);
