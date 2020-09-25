@@ -1,45 +1,106 @@
 package com.ncst2.sort;
 
-import com.ncst1.sort.MergeSort;
+
+
 import com.ncst2.sort.cmp.BubbleSort;
 import com.ncst2.sort.cmp.HeapSort;
+import com.ncst2.sort.cmp.MergeSort;
 import com.ncst2.sort.cmp.SelectSort;
 import com.ncst2.utils.Asserts;
 import com.ncst2.utils.Integers;
 
 import java.util.Arrays;
 
-/**
- * @Date 2020/9/21 22:47
- * @Author by LiShiYan
- * @Descaption
- */
+@SuppressWarnings({"rawtypes", "unchecked", "unused"})
 public class Main {
-    public static void main(String[] args) {
-        int count = 10000;
-        int min = 1;
-        int max = 100000;
-        Integer[] array = Integers.random(count, min, max);
 
-        testSorts(array,
-                new SelectSort(),
-                new BubbleSort(),
-                new HeapSort()
-
-        );
-    }
-
-    static void testSorts(Integer[] array, Sort... sorts) {
-        for (Sort sort : sorts) {
-            Integer[] newArray = Integers.copy(array);
-            sort.sort(newArray);
-           // Integers.println(array);
-           // Asserts.test(Integers.isAscOrder(newArray));
-        }
-        Arrays.sort(sorts);
-
-        for (Sort sort : sorts) {
-            System.out.println(sort);
-        }
-    }
+	public static void main(String[] args) {
+		Integer[] array = Integers.random(20000,1,20000);
+		
+		testSorts(array, 
+//				new RadixSort()
+//				new InsertionSort1(),
+//				new InsertionSort2(),
+//				new InsertionSort3(),
+				new SelectSort(),
+				new HeapSort(),
+			new MergeSort(),
+				new BubbleSort()
+//				new QuickSort(),
+//				new ShellSort()
+				);
+	}
+	
+	static void testSorts(Integer[] array, Sort... sorts) {
+		for (Sort sort : sorts) {
+			Integer[] newArray = Integers.copy(array);
+			sort.sort(newArray);
+			//Integers.println(newArray);
+			Asserts.test(Integers.isAscOrder(newArray));
+		}
+		Arrays.sort(sorts);
+		
+		for (Sort sort : sorts) {
+			System.out.println(sort);
+		}
+	}
+	
+//	static void selectionSort(Integer[] array) {
+//		for (int end = array.length - 1; end > 0; end--) {
+//			int maxIndex = 0;
+//			for (int begin = 1; begin <= end; begin++) {
+//				if (array[maxIndex] <= array[begin]) {
+//					maxIndex = begin;
+//				}
+//			}
+//			int tmp = array[maxIndex];
+//			array[maxIndex] = array[end];
+//			array[end] = tmp;
+//		}
+//		
+//		// 8 10 9 10 
+//	}
+//	
+//	static void bubbleSort1(Integer[] array) {
+//		for (int end = array.length - 1; end > 0; end--) {
+//			for (int begin = 1; begin <= end; begin++) {
+//				if (array[begin] < array[begin - 1]) {
+//					int tmp = array[begin];
+//					array[begin] = array[begin - 1];
+//					array[begin - 1] = tmp;
+//				}
+//			}
+//		}
+//	}
+//	
+//	static void bubbleSort2(Integer[] array) {
+//		for (int end = array.length - 1; end > 0; end--) {
+//			boolean sorted = true;
+//			for (int begin = 1; begin <= end; begin++) {
+//				if (array[begin] < array[begin - 1]) {
+//					int tmp = array[begin];
+//					array[begin] = array[begin - 1];
+//					array[begin - 1] = tmp;
+//					sorted = false;
+//				}
+//			}
+//			if (sorted) break;
+//		}
+//	}
+//
+//	static void bubbleSort3(Integer[] array) {
+//		for (int end = array.length - 1; end > 0; end--) {
+//			// sortedIndex的初始值在数组完全有序的时候有用
+//			int sortedIndex = 1;
+//			for (int begin = 1; begin <= end; begin++) {
+//				if (array[begin] < array[begin - 1]) {
+//					int tmp = array[begin];
+//					array[begin] = array[begin - 1];
+//					array[begin - 1] = tmp;
+//					sortedIndex = begin;
+//				}
+//			}
+//			end = sortedIndex;
+//		}
+//	}
 }
