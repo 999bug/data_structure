@@ -16,17 +16,16 @@ public class ShellSort implements IArraySort {
     @Override
     public int[] sort(int[] sourceArray) {
         int[] array = Arrays.copyOf(sourceArray, sourceArray.length);
-        int len = array.length;
 
-        //增量gap ，并逐步缩小增量
-        for (int gap = len / 2; gap > 0; gap /= 2) {
+        //增量step ，并逐步缩小增量
+        for (int step = array.length / 2; step > 0; step /= 2) {
             //从gap 个元素，逐个对其所在组直接插入排序操作
-            for (int i = gap; i < len; i++) {
-                int j = i;
-                while (j - gap >= 0 && array[j] < array[j - gap]) {
+            for (int begin = step; begin < array.length; begin++) {
+                int cur = begin;
+                while (cur - step >= 0 && array[cur] < array[cur - step]) {
                     //插入排序采用交换法
-                    swap(array, j, j - gap);
-                    j -= gap;
+                    swap(array, cur, cur - step);
+                    cur -= step;
                 }
             }
         }

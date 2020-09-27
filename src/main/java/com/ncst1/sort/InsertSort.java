@@ -13,19 +13,20 @@ public class InsertSort implements IArraySort {
 
         int[] array = Arrays.copyOf(sourceArray, sourceArray.length);
         //从下标为1 的位置插入，下标为0 的位置默认有序
-        for (int i = 1; i < array.length; i++) {
+        for (int begin = 1; begin < array.length; begin++) {
 
-            //记录要插入的数据
-            int tmp = array[i];
             //从已经排序的序列最右边开始比较，找到最小的数
-            int j = i;
-            while (j > 0 && tmp < array[j - 1]) {
-                array[j] = array[j - 1];
-                j--;
+            int cur = begin;
+            //记录要插入的数据
+            int tmp = array[cur];
+
+            while (cur > 0 && tmp < array[cur - 1]) {
+                array[cur] = array[cur - 1];
+                cur--;
             }
             //存在比其小的数，插入
-            if (j != i) {
-                array[j] = tmp;
+            if (cur != begin) {
+                array[cur] = tmp;
             }
         }
         return array;

@@ -1,11 +1,7 @@
 package com.ncst2.sort;
 
 
-
-import com.ncst2.sort.cmp.BubbleSort;
-import com.ncst2.sort.cmp.HeapSort;
-import com.ncst2.sort.cmp.MergeSort;
-import com.ncst2.sort.cmp.SelectSort;
+import com.ncst2.sort.cmp.*;
 import com.ncst2.utils.Asserts;
 import com.ncst2.utils.Integers;
 
@@ -14,37 +10,44 @@ import java.util.Arrays;
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
 public class Main {
 
-	public static void main(String[] args) {
-		Integer[] array = Integers.random(20000,1,20000);
-		
-		testSorts(array, 
+    public static void main(String[] args) {
+
+        int num =10000;//1万
+        int num1 =1000000;//百万
+        int num2 =10000000;//千万
+        int num3 =10000000;//千万
+
+        Integer[] array = Integers.random(num3, 1, num3);
+
+        testSorts(array,
 //				new RadixSort()
 //				new InsertionSort1(),
 //				new InsertionSort2(),
-//				new InsertionSort3(),
-				new SelectSort(),
-				new HeapSort(),
-			new MergeSort(),
-				new BubbleSort()
-//				new QuickSort(),
-//				new ShellSort()
-				);
-	}
-	
-	static void testSorts(Integer[] array, Sort... sorts) {
-		for (Sort sort : sorts) {
-			Integer[] newArray = Integers.copy(array);
-			sort.sort(newArray);
-			//Integers.println(newArray);
-			Asserts.test(Integers.isAscOrder(newArray));
-		}
-		Arrays.sort(sorts);
-		
-		for (Sort sort : sorts) {
-			System.out.println(sort);
-		}
-	}
-	
+				//new InsertionSort(),
+                //new BubbleSort(),
+              //  new SelectSort(),
+               // new HeapSort(),
+                new MergeSort(),
+                new QuickSort()
+				//new ShellSort(),
+                //new ShellSortEasy()
+        );
+    }
+
+    static void testSorts(Integer[] array, Sort... sorts) {
+        for (Sort sort : sorts) {
+            Integer[] newArray = Integers.copy(array);
+            sort.sort(newArray);
+            //Integers.println(newArray);
+            Asserts.test(Integers.isAscOrder(newArray));
+        }
+        Arrays.sort(sorts);
+
+        for (Sort sort : sorts) {
+            System.out.println(sort);
+        }
+    }
+
 //	static void selectionSort(Integer[] array) {
 //		for (int end = array.length - 1; end > 0; end--) {
 //			int maxIndex = 0;
