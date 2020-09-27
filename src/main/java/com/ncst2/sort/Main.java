@@ -13,11 +13,11 @@ public class Main {
     public static void main(String[] args) {
 
         int num =10000;//1万
-        int num1 =1000000;//百万
+        int num1 =100000;//百万
         int num2 =10000000;//千万
         int num3 =10000000;//千万
 
-        Integer[] array = Integers.random(num3, 1, num3);
+        Integer[] array = Integers.random(num1, 1, num1);
 
         testSorts(array,
 //				new RadixSort()
@@ -25,11 +25,11 @@ public class Main {
 //				new InsertionSort2(),
 				//new InsertionSort(),
                 //new BubbleSort(),
-              //  new SelectSort(),
-               // new HeapSort(),
+//                new SelectSort(),
+                new HeapSort(),
                 new MergeSort(),
-                new QuickSort()
-				//new ShellSort(),
+                new QuickSort(),
+				new ShellSort()
                 //new ShellSortEasy()
         );
     }

@@ -1,109 +1,113 @@
 package com.mj;
 
-import java.util.Arrays;
-
-import com.mj.sort.CountingSort;
-import com.mj.sort.RadixSort;
-import com.mj.sort.Sort;
-import com.mj.sort.cmp.BubbleSort3;
-import com.mj.sort.cmp.HeapSort;
-import com.mj.sort.cmp.InsertionSort3;
-import com.mj.sort.cmp.MergeSort;
-import com.mj.sort.cmp.QuickSort;
-import com.mj.sort.cmp.SelectionSort;
-import com.mj.sort.cmp.ShellSort;
 import com.mj.tools.Asserts;
-import com.mj.tools.Integers;
+import com.mj.tools.Times;
+import com.mj.union.GenericUnionFind;
+import com.mj.union.UnionFind;
+import com.mj.union.UnionFind_QU_R;
+import com.mj.union.UnionFind_QU_R_PC;
+import com.mj.union.UnionFind_QU_R_PH;
+import com.mj.union.UnionFind_QU_R_PS;
+import com.mj.union.UnionFind_QU_S;
 
-@SuppressWarnings({"rawtypes", "unchecked", "unused"})
 public class Main {
+	static final int count = 1000000;
 
 	public static void main(String[] args) {
-		Integer[] array = {7, 3, 5, 8, 6, 7, 4, 5};
+//		testTime(new UnionFind_QF(count));
+//		testTime(new UnionFind_QU(count));
+//		testTime(new UnionFind_QU_S(count));
+//		testTime(new UnionFind_QU_R(count));
+		testTime(new UnionFind_QU_R_PC(count));
+		testTime(new UnionFind_QU_R_PS(count));
+		testTime(new UnionFind_QU_R_PH(count));
+		testTime(new GenericUnionFind<Integer>());
 		
-		testSorts(array, 
-//				new RadixSort()
-//				new InsertionSort1(),
-//				new InsertionSort2(),
-				new InsertionSort3(),
-				new SelectionSort(), 
-				new HeapSort(), 
-				new MergeSort(),
-				new BubbleSort3(),
-				new QuickSort(),
-				new ShellSort()
-				);
-	}
-	
-	static void testSorts(Integer[] array, Sort... sorts) {
-		for (Sort sort : sorts) {
-			Integer[] newArray = Integers.copy(array);
-			sort.sort(newArray);
-			Asserts.test(Integers.isAscOrder(newArray));
-		}
-		Arrays.sort(sorts);
-		
-		for (Sort sort : sorts) {
-			System.out.println(sort);
-		}
-	}
-	
-//	static void selectionSort(Integer[] array) {
-//		for (int end = array.length - 1; end > 0; end--) {
-//			int maxIndex = 0;
-//			for (int begin = 1; begin <= end; begin++) {
-//				if (array[maxIndex] <= array[begin]) {
-//					maxIndex = begin;
-//				}
-//			}
-//			int tmp = array[maxIndex];
-//			array[maxIndex] = array[end];
-//			array[end] = tmp;
-//		}
+//		GenericUnionFind<Student> uf = new GenericUnionFind<>();
+//		Student stu1 = new Student(1, "jack");
+//		Student stu2 = new Student(2, "rose");
+//		Student stu3 = new Student(3, "jack");
+//		Student stu4 = new Student(4, "rose");
+//		uf.makeSet(stu1);
+//		uf.makeSet(stu2);
+//		uf.makeSet(stu3);
+//		uf.makeSet(stu4);
 //		
-//		// 8 10 9 10 
-//	}
-//	
-//	static void bubbleSort1(Integer[] array) {
-//		for (int end = array.length - 1; end > 0; end--) {
-//			for (int begin = 1; begin <= end; begin++) {
-//				if (array[begin] < array[begin - 1]) {
-//					int tmp = array[begin];
-//					array[begin] = array[begin - 1];
-//					array[begin - 1] = tmp;
-//				}
-//			}
-//		}
-//	}
-//	
-//	static void bubbleSort2(Integer[] array) {
-//		for (int end = array.length - 1; end > 0; end--) {
-//			boolean sorted = true;
-//			for (int begin = 1; begin <= end; begin++) {
-//				if (array[begin] < array[begin - 1]) {
-//					int tmp = array[begin];
-//					array[begin] = array[begin - 1];
-//					array[begin - 1] = tmp;
-//					sorted = false;
-//				}
-//			}
-//			if (sorted) break;
-//		}
-//	}
-//
-//	static void bubbleSort3(Integer[] array) {
-//		for (int end = array.length - 1; end > 0; end--) {
-//			// sortedIndex的初始值在数组完全有序的时候有用
-//			int sortedIndex = 1;
-//			for (int begin = 1; begin <= end; begin++) {
-//				if (array[begin] < array[begin - 1]) {
-//					int tmp = array[begin];
-//					array[begin] = array[begin - 1];
-//					array[begin - 1] = tmp;
-//					sortedIndex = begin;
-//				}
-//			}
-//			end = sortedIndex;
-//		}
-//	}
+//		uf.union(stu1, stu2);
+//		uf.union(stu3, stu4);
+//		
+//		uf.union(stu1, stu4);
+//		
+//		Asserts.test(uf.isSame(stu2, stu3));
+//		Asserts.test(uf.isSame(stu3, stu4));
+//		Asserts.test(!uf.isSame(stu1, stu3));
+	}
+	
+	static void testTime(GenericUnionFind<Integer> uf) {
+		for (int i = 0; i < count; i++) {
+			uf.makeSet(i);
+		}
+		
+		uf.union(0, 1);
+		uf.union(0, 3);
+		uf.union(0, 4);
+		uf.union(2, 3);
+		uf.union(2, 5);
+		
+		uf.union(6, 7);
+
+		uf.union(8, 10);
+		uf.union(9, 10);
+		uf.union(9, 11);
+		
+		Asserts.test(!uf.isSame(2, 7));
+
+		uf.union(4, 6);
+		
+		Asserts.test(uf.isSame(2, 7));
+		
+		Times.test(uf.getClass().getSimpleName(), () -> {
+			for (int i = 0; i < count; i++) {
+				uf.union((int)(Math.random() * count), 
+						(int)(Math.random() * count));
+			}
+			
+			for (int i = 0; i < count; i++) {
+				uf.isSame((int)(Math.random() * count), 
+						(int)(Math.random() * count));
+			}
+		});
+	}
+	
+	static void testTime(UnionFind uf) {
+		uf.union(0, 1);
+		uf.union(0, 3);
+		uf.union(0, 4);
+		uf.union(2, 3);
+		uf.union(2, 5);
+		
+		uf.union(6, 7);
+
+		uf.union(8, 10);
+		uf.union(9, 10);
+		uf.union(9, 11);
+		
+		Asserts.test(!uf.isSame(2, 7));
+
+		uf.union(4, 6);
+		
+		Asserts.test(uf.isSame(2, 7));
+		
+		Times.test(uf.getClass().getSimpleName(), () -> {
+			for (int i = 0; i < count; i++) {
+				uf.union((int)(Math.random() * count), 
+						(int)(Math.random() * count));
+			}
+			
+			for (int i = 0; i < count; i++) {
+				uf.isSame((int)(Math.random() * count), 
+						(int)(Math.random() * count));
+			}
+		});
+	}
 }
