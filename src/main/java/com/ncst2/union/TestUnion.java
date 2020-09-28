@@ -1,6 +1,9 @@
 package com.ncst2.union;
 
 import com.ncst2.utils.Asserts;
+import com.ncst2.utils.Times;
+
+import static com.edu.sort.BubbleSort.count;
 
 /**
  * @Date 2020/9/27 22:28
@@ -9,9 +12,15 @@ import com.ncst2.utils.Asserts;
  */
 public class TestUnion {
     static final int COUNT = 1000000;
-    public static void main(String[] args) {
-        UnionFind_QF uf=new UnionFind_QF(COUNT);
 
+    public static void main(String[] args) {
+//       testTime(new UnionFind_QF(COUNT));
+//       testTime(new UnionFind_QU(COUNT));
+        testTime(new UnionFind_QU_S(COUNT));
+        testTime(new UnionFind_QU_R(COUNT));
+    }
+
+    static void testTime(UnionFind uf) {
         uf.union(0, 1);
         uf.union(0, 3);
         uf.union(0, 4);
@@ -29,5 +38,17 @@ public class TestUnion {
         uf.union(4, 6);
 
         Asserts.test(uf.isSame(2, 7));
+
+        Times.test(uf.getClass().getSimpleName(), () -> {
+            for (int i = 0; i < COUNT; i++) {
+                uf.union((int) (Math.random() * COUNT),
+                        (int) (Math.random() * COUNT));
+            }
+
+            for (int i = 0; i < COUNT; i++) {
+                uf.isSame((int) (Math.random() * COUNT),
+                        (int) (Math.random() * COUNT));
+            }
+        });
     }
 }

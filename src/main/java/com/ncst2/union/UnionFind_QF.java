@@ -12,9 +12,7 @@ public class UnionFind_QF extends UnionFind {
 
     /**
      * 合并v1、v2所在的集合
-     * 将 v1 所在的头结点 指向 v2 所在的头结点
-     * @param v1 v1
-     * @param v2 v2
+     * 将v1所在集合的所有元素，都嫁接到v2的父节点上
      */
     @Override
     public void union(int v1, int v2) {
@@ -31,6 +29,9 @@ public class UnionFind_QF extends UnionFind {
         }
     }
 
+    /**
+     * 父节点就是根节点
+     */
     @Override
     public int find(int v) {
         rangeCheck(v);
