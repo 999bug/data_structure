@@ -11,13 +11,16 @@ import static com.edu.sort.BubbleSort.count;
  * @Description
  */
 public class TestUnion {
-    static final int COUNT = 1000000;
+    static final int COUNT = 4000000;
 
     public static void main(String[] args) {
 //       testTime(new UnionFind_QF(COUNT));
 //       testTime(new UnionFind_QU(COUNT));
-        testTime(new UnionFind_QU_S(COUNT));
+       // testTime(new UnionFind_QU_S(COUNT));
         testTime(new UnionFind_QU_R(COUNT));
+        testTime(new UnionFind_QU_R_PC(COUNT));
+        testTime(new UnionFind_QU_R_PS(COUNT));
+        testTime(new UnionFind_QU_R_PH(COUNT));
     }
 
     static void testTime(UnionFind uf) {

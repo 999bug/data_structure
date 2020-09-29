@@ -17,11 +17,11 @@ public class Main {
 //		testTime(new UnionFind_QF(count));
 //		testTime(new UnionFind_QU(count));
 //		testTime(new UnionFind_QU_S(count));
-//		testTime(new UnionFind_QU_R(count));
+		testTime(new UnionFind_QU_R(count));
 		testTime(new UnionFind_QU_R_PC(count));
 		testTime(new UnionFind_QU_R_PS(count));
 		testTime(new UnionFind_QU_R_PH(count));
-		testTime(new GenericUnionFind<Integer>());
+		//testTime(new GenericUnionFind<Integer>());
 		
 //		GenericUnionFind<Student> uf = new GenericUnionFind<>();
 //		Student stu1 = new Student(1, "jack");
