@@ -114,6 +114,32 @@ public class ListGraph<V, E> extends Graph<V, E> {
 
     }
 
+    @Override
+    public void bfs(V begin) {
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex==null){
+            return;
+        }
+        Queue<Vertex<V,E>> queue=new LinkedList<>();
+        Set<Vertex<V,E>> visitedVertices=new HashSet<>();
+
+        queue.offer(beginVertex);
+        visitedVertices.add(beginVertex);
+
+        while(!queue.isEmpty()){
+            Vertex<V, E> vertex = queue.poll();
+            System.out.println(vertex.value);
+
+            for (Edge<V, E> edge : vertex.outEdges) {
+                if (visitedVertices.contains(edge.to)){
+                    continue;
+                }
+                queue.offer(edge.to);
+                visitedVertices.add(edge.to);
+            }
+        }
+    }
+
     public void print() {
         System.out.println("[顶点]-------------------");
         vertices.forEach((V v, Vertex<V, E> vertex) -> {

@@ -55,4 +55,6 @@ public abstract class Graph<V, E> {
      */
     public abstract void removeEdge(V from,V to);
 
+    public abstract  void bfs(V begin);
+
 }
