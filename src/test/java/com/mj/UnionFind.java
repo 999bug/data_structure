@@ -1,10 +1,10 @@
-package com.mj.union;
+package com.mj;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class GenericUnionFind<V> {
+public class UnionFind<V> {
 	private Map<V, Node<V>> nodes = new HashMap<>();
 
 	public void makeSet(V v) {

@@ -1,113 +1,158 @@
 package com.mj;
 
-import com.mj.tools.Asserts;
-import com.mj.tools.Times;
-import com.mj.union.GenericUnionFind;
-import com.mj.union.UnionFind;
-import com.mj.union.UnionFind_QU_R;
-import com.mj.union.UnionFind_QU_R_PC;
-import com.mj.union.UnionFind_QU_R_PH;
-import com.mj.union.UnionFind_QU_R_PS;
-import com.mj.union.UnionFind_QU_S;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.mj.graph.Graph;
+import com.mj.graph.Graph.EdgeInfo;
+import com.mj.graph.Graph.PathInfo;
+import com.mj.graph.Graph.WeightManager;
+import com.mj.graph.ListGraph;
 
 public class Main {
-	static final int count = 1000000;
+	static WeightManager<Double> weightManager = new WeightManager<Double>() {
+		public int compare(Double w1, Double w2) {
+			return w1.compareTo(w2);
+		}
+
+		public Double add(Double w1, Double w2) {
+			return w1 + w2;
+		}
+
+		@Override
+		public Double zero() {
+			return 0.0;
+		}
+	};
 
 	public static void main(String[] args) {
-//		testTime(new UnionFind_QF(count));
-//		testTime(new UnionFind_QU(count));
-//		testTime(new UnionFind_QU_S(count));
-		testTime(new UnionFind_QU_R(count));
-		testTime(new UnionFind_QU_R_PC(count));
-		testTime(new UnionFind_QU_R_PS(count));
-		testTime(new UnionFind_QU_R_PH(count));
-		//testTime(new GenericUnionFind<Integer>());
-		
-//		GenericUnionFind<Student> uf = new GenericUnionFind<>();
-		Student stu1 = new Student(1, "jack");
-		Student stu2 = new Student(2, "rose");
-		Student stu3 = new Student(3, "jack");
-		Student stu4 = new Student(4, "rose");
-//		uf.makeSet(stu1);
-//		uf.makeSet(stu2);
-//		uf.makeSet(stu3);
-//		uf.makeSet(stu4);
-//
-//		uf.union(stu1, stu2);
-//		uf.union(stu3, stu4);
-//
-//		uf.union(stu1, stu4);
-//
-//		Asserts.test(uf.isSame(stu2, stu3));
-//		Asserts.test(uf.isSame(stu3, stu4));
-//		Asserts.test(!uf.isSame(stu1, stu3));
+		//testMultiSp();
+		test();
 	}
 	
-	static void testTime(GenericUnionFind<Integer> uf) {
-		for (int i = 0; i < count; i++) {
-			uf.makeSet(i);
+	static void testMultiSp() {
+		Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);
+		Map<Object, Map<Object, PathInfo<Object, Double>>> sp = graph.shortestPath();
+		sp.forEach((Object from, Map<Object, PathInfo<Object, Double>> paths) -> {
+			System.out.println(from + "---------------------");
+			paths.forEach((Object to, PathInfo<Object, Double> path) -> {
+				System.out.println(to + " - " + path);
+			});
+		});
+	}
+	
+	static void testSp() {
+		Graph<Object, Double> graph = directedGraph(Data.SP);
+		Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
+		if (sp == null) return;
+		sp.forEach((Object v, PathInfo<Object, Double> path) -> {
+			System.out.println(v + " - " + path);
+		});
+	}
+	
+	static void testMst() {
+		Graph<Object, Double> graph = undirectedGraph(Data.MST_01);
+		Set<EdgeInfo<Object, Double>> infos = graph.mst();
+		for (EdgeInfo<Object, Double> info : infos) {
+			System.out.println(info);
 		}
-		
-		uf.union(0, 1);
-		uf.union(0, 3);
-		uf.union(0, 4);
-		uf.union(2, 3);
-		uf.union(2, 5);
-		
-		uf.union(6, 7);
-
-		uf.union(8, 10);
-		uf.union(9, 10);
-		uf.union(9, 11);
-		
-		Asserts.test(!uf.isSame(2, 7));
-
-		uf.union(4, 6);
-		
-		Asserts.test(uf.isSame(2, 7));
-		
-		Times.test(uf.getClass().getSimpleName(), () -> {
-			for (int i = 0; i < count; i++) {
-				uf.union((int)(Math.random() * count), 
-						(int)(Math.random() * count));
-			}
-			
-			for (int i = 0; i < count; i++) {
-				uf.isSame((int)(Math.random() * count), 
-						(int)(Math.random() * count));
-			}
+	}
+	
+	static void testTopo() {
+		Graph<Object, Double> graph = directedGraph(Data.TOPO);
+		List<Object> list = graph.topologicalSort();
+		System.out.println(list);
+	}
+	
+	static void testDfs() {
+		Graph<Object, Double> graph = directedGraph(Data.DFS_02);
+		graph.dfs("a", (Object v) -> {
+			System.out.println(v);
+			return false;
 		});
 	}
 	
-	static void testTime(UnionFind uf) {
-		uf.union(0, 1);
-		uf.union(0, 3);
-		uf.union(0, 4);
-		uf.union(2, 3);
-		uf.union(2, 5);
-		
-		uf.union(6, 7);
-
-		uf.union(8, 10);
-		uf.union(9, 10);
-		uf.union(9, 11);
-		
-		Asserts.test(!uf.isSame(2, 7));
-
-		uf.union(4, 6);
-		
-		Asserts.test(uf.isSame(2, 7));
-		
-		Times.test(uf.getClass().getSimpleName(), () -> {
-			for (int i = 0; i < count; i++) {
-				uf.union((int)(Math.random() * count), 
-						(int)(Math.random() * count));
-			}
-			
-			for (int i = 0; i < count; i++) {
-				uf.isSame((int)(Math.random() * count), 
-						(int)(Math.random() * count));
-			}
+	static void testBfs() {
+		Graph<Object, Double> graph = directedGraph(Data.BFS_02);
+		graph.bfs(0, (Object v) -> {
+			System.out.println(v);
+			return false;
 		});
+	}
+	
+	static void test() {
+		ListGraph<String, Integer> graph = new ListGraph<>();
+//		graph.addEdge("V0", "V1");
+//		graph.addEdge("V1", "V0");
+//		
+//		graph.addEdge("V0", "V2");
+//		graph.addEdge("V2", "V0");
+//
+//		graph.addEdge("V0", "V3");
+//		graph.addEdge("V3", "V0");
+//
+//		graph.addEdge("V1", "V2");
+//		graph.addEdge("V2", "V1");
+//		
+//		graph.addEdge("V2", "V3");
+//		graph.addEdge("V3", "V2");
+//		
+//		graph.print();
+		
+		
+		graph.addEdge("V1", "V0", 9);
+		graph.addEdge("V1", "V2", 3);
+		graph.addEdge("V2", "V0", 2);
+		graph.addEdge("V2", "V3", 5);
+		graph.addEdge("V3", "V4", 1);
+		graph.addEdge("V0", "V4", 6);
+		
+////		graph.removeEdge("V0", "V4");
+//		graph.removeVertex("V0");
+//		
+		graph.print();
+		
+		
+	}
+	
+	/**
+	 * 有向图
+	 */
+	private static Graph<Object, Double> directedGraph(Object[][] data) {
+		Graph<Object, Double> graph = new ListGraph<>(weightManager);
+		for (Object[] edge : data) {
+			if (edge.length == 1) {
+				graph.addVertex(edge[0]);
+			} else if (edge.length == 2) {
+				graph.addEdge(edge[0], edge[1]);
+			} else if (edge.length == 3) {
+				double weight = Double.parseDouble(edge[2].toString());
+				graph.addEdge(edge[0], edge[1], weight);
+			}
+		}
+		return graph;
+	}
+	
+	/**
+	 * 无向图
+	 * @param data
+	 * @return
+	 */
+	private static Graph<Object, Double> undirectedGraph(Object[][] data) {
+		Graph<Object, Double> graph = new ListGraph<>(weightManager);
+		for (Object[] edge : data) {
+			if (edge.length == 1) {
+				graph.addVertex(edge[0]);
+			} else if (edge.length == 2) {
+				graph.addEdge(edge[0], edge[1]);
+				graph.addEdge(edge[1], edge[0]);
+			} else if (edge.length == 3) {
+				double weight = Double.parseDouble(edge[2].toString());
+				graph.addEdge(edge[0], edge[1], weight);
+				graph.addEdge(edge[1], edge[0], weight);
+			}
+		}
+		return graph;
 	}
 }
