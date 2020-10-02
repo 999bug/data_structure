@@ -55,6 +55,16 @@ public abstract class Graph<V, E> {
      */
     public abstract void removeEdge(V from,V to);
 
+    /**
+     * BFS 层序遍历
+     * @param begin 起点
+     */
     public abstract  void bfs(V begin);
+
+    /**
+     * DFS 深序遍历
+     * @param begin 起点
+     */
+    public abstract  void dfs(V begin);
 
 }

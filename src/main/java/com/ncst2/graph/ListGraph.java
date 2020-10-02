@@ -140,6 +140,28 @@ public class ListGraph<V, E> extends Graph<V, E> {
         }
     }
 
+    @Override
+    public void dfs(V begin) {
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex==null){
+            return;
+        }
+        dfs(beginVertex,new HashSet<>());
+    }
+
+    private void dfs(Vertex<V,E> vertex, HashSet<Vertex<V,E>> vertices) {
+        System.out.println(vertex.value);
+        vertices.add(vertex);
+
+        for (Edge<V, E> edge : vertex.outEdges) {
+            if (vertices.contains(edge.to)){
+                continue;
+            }
+            dfs(edge.to,vertices);
+        }
+    }
+
+
     public void print() {
         System.out.println("[顶点]-------------------");
         vertices.forEach((V v, Vertex<V, E> vertex) -> {
