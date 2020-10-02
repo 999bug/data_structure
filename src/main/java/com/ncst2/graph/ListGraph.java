@@ -146,10 +146,45 @@ public class ListGraph<V, E> extends Graph<V, E> {
         if (beginVertex==null){
             return;
         }
-        dfs(beginVertex,new HashSet<>());
+        dfsForRecursion(beginVertex,new HashSet<>());
+       // dfsForStack(beginVertex);
+
     }
 
-    private void dfs(Vertex<V,E> vertex, HashSet<Vertex<V,E>> vertices) {
+    /**
+     * 使用 stack 实现 DFS
+     * @param beginVertex 起点
+     */
+    private void dfsForStack(Vertex<V,E> beginVertex) {
+        Set<Vertex<V,E>> vertices=new HashSet<>();
+        Stack<Vertex<V,E>> stack=new Stack<>();
+
+        // 先访问起点
+        stack.push(beginVertex);
+        System.out.println(beginVertex);
+        vertices.add(beginVertex);
+
+        while(!stack.isEmpty()){
+            Vertex<V, E> vertex = stack.pop();
+            for (Edge<V, E> edge : vertex.outEdges) {
+                if (vertices.contains(edge.to)){
+                    continue;
+                }
+                stack.push(edge.from);
+                stack.push(edge.to);
+                System.out.println(edge.to.value);
+                vertices.add(edge.to);
+                break;
+            }
+        }
+    }
+
+    /**
+     * 递归实现 DFS
+     * @param vertex 顶点
+     * @param vertices 顶点set 集合
+     */
+    private void dfsForRecursion(Vertex<V,E> vertex, HashSet<Vertex<V,E>> vertices) {
         System.out.println(vertex.value);
         vertices.add(vertex);
 
@@ -157,7 +192,7 @@ public class ListGraph<V, E> extends Graph<V, E> {
             if (vertices.contains(edge.to)){
                 continue;
             }
-            dfs(edge.to,vertices);
+            dfsForRecursion(edge.to,vertices);
         }
     }
 
