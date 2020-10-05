@@ -27,8 +27,7 @@ public class Main {
 	};
 
 	public static void main(String[] args) {
-		//testMultiSp();
-		test();
+		testBfs();
 	}
 	
 	static void testMultiSp() {

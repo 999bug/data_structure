@@ -1,5 +1,7 @@
 package com.ncst2.graph;
 
+import java.util.List;
+
 /**
  * @Date 2020/10/1 16:08
  * @Author by LSY
@@ -56,15 +58,31 @@ public abstract class Graph<V, E> {
     public abstract void removeEdge(V from,V to);
 
     /**
-     * BFS 层序遍历
+     *  BFS 层序遍历
      * @param begin 起点
+     * @param visitor 遍历的条件
      */
-    public abstract  void bfs(V begin);
+    public abstract  void bfs(V begin,VertexVisitor<V> visitor);
 
     /**
-     * DFS 深序遍历
+     *  DFS 深序遍历
      * @param begin 起点
+     * @param visitor 遍历的条件
      */
-    public abstract  void dfs(V begin);
+    public abstract  void dfs(V begin,VertexVisitor<V> visitor);
 
+    public interface VertexVisitor<V>{
+        /**
+         * 遍历接口
+         * @param v 遍历的点
+         * @return 如果为true 中止循环 为false 继续循环
+         */
+        boolean visit(V v);
+    }
+
+    /**
+     * 拓扑排序 ，必须是有向无环图
+     * @return 排序结果
+     */
+    public abstract List<V> topologicalSort();
 }
