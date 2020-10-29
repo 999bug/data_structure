@@ -15,12 +15,16 @@ import java.util.List;
  * @Descaption
  */
 public class TestAVL {
+    
+
     public static void main(String[] args) {
-        test4();
+        //test4();
+
     }
+
     static void test4() {
         Integer[] data = new Integer[]{
-                3,9,20,15,7
+                3, 9, 20, 15, 7
         };
 
         AvlTree<Integer> avl = new AvlTree<>();

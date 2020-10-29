@@ -24,7 +24,8 @@ public class GetBestGoldDemo {
                     resultTable[i][j] = resultTable[i - 1][j];
                 } else {
                     resultTable[i][j] =
-                            Math.max(resultTable[i - 1][j], resultTable[i - 1][j - p[i - 1]] + g[i - 1]);
+                            Math.max(resultTable[i - 1][j],
+                                    resultTable[i - 1][j - p[i - 1]] + g[i - 1]);
                 }
             }
         }

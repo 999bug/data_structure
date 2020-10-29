@@ -1,6 +1,7 @@
 package com.ncst2.graph;
 
 import java.util.List;
+import java.util.Stack;
 
 /**
  * @Date 2020/10/1 17:18
@@ -9,6 +10,7 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) {
+        Stack<Integer> stack=new Stack<>();
         testTopo();
     }
     static void testTopo() {
