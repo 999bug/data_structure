@@ -111,7 +111,7 @@ public class Fib {
         for (int i = 3; i <= n; i++) {
             arr[i & 1] = arr[(i - 1) & 1] + arr[(i - 2) & 1];
         }
-        return arr[n % 2];
+        return arr[n & 1];
     }
 
     /**
