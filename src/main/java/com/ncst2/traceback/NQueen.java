@@ -37,6 +37,7 @@ public class NQueen {
     private void place(int row) {
         if (row == queens.length) {
             ways++;
+            show();
             return;
         }
         for (int col = 0; col < queens.length; col++) {
@@ -57,10 +58,24 @@ public class NQueen {
                 return false;
             }
             //row -i/col-queen[i]== -1|1
-            if (row - i==Math.abs(col- queens[i])) {
+            if (row - i == Math.abs(col - queens[i])) {
                 return false;
             }
         }
         return true;
+    }
+
+    private void show() {
+        for (int row = 0; row < queens.length; row++) {
+            for (int col = 0; col < queens.length; col++) {
+                if (queens[row] == col) {
+                    System.out.print("1 ");
+                } else {
+                    System.out.print("0 ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("===============");
     }
 }
