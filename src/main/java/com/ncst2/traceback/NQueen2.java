@@ -33,7 +33,7 @@ public class NQueen2 {
     private int ways;
 
     public static void main(String[] args) {
-        new NQueen2().placeQueen(8);
+        new NQueen2().placeQueen(4);
 
     }
 
@@ -58,7 +58,6 @@ public class NQueen2 {
             show();
             return;
         }
-
         for (int col = 0; col < cols.length; col++) {
             int leftIdx = row - col + cols.length - 1;
             int rightIdx = row + col;
@@ -79,7 +78,6 @@ public class NQueen2 {
             //回溯 将 cols[col] 的皇后去除掉，将斜线重新置为 false
             cols[col] = leftTop[leftIdx] = rightTop[rightIdx] = false;
         }
-
     }
 
     /**
