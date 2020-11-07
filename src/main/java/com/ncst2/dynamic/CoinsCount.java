@@ -21,6 +21,7 @@ public class CoinsCount {
             return -1;
         }
         int[] dp = new int[n + 1];
+
         for (int i = 1; i <= n; i++) {
             int min = Integer.MAX_VALUE;
             for (int face : faces) {
