@@ -15,7 +15,7 @@ package com.ncst2.dynamic;
  */
 public class Lcs {
     public static void main(String[] args) {
-        int len = new Lcs().lcs3(new int[]{1, 2, 5, 9, 10}, new int[]{1, 4, 9, 10});
+        int len = new Lcs().lcs5(new int[]{1, 2, 5, 9, 10}, new int[]{1, 4, 9, 10});
         System.out.println("len = " + len);
     }
 
@@ -32,6 +32,64 @@ public class Lcs {
      * nums1[i - 1] != nums2[j - 1] ==> dp(i,j) = max{dp(i -1, j),dp(i, j - 1) }
      */
 
+    /**
+     * dp 动态规划 + 一维数组
+     */
+    public int lcs5(int[] nums1, int[] nums2){
+        if (nums1 == null || nums1.length == 0) {
+            return 0;
+        }
+        if (nums2 == null || nums2.length == 0) {
+            return 0;
+        }
+        //选择数组元素少的当 列
+        int[] rowsNums = nums1,colsNums = nums2;
+        if (rowsNums.length < colsNums.length){
+            colsNums = nums1;
+            rowsNums = nums2;
+        }
+        int[] dp = new int[colsNums.length + 1];
+
+        for (int i = 1; i <= rowsNums.length; i++) {
+            int cur = 0;
+            for (int j = 1; j <= colsNums.length; j++) {
+                int leftTop = cur;
+                cur = dp[j];
+                if (rowsNums[i - 1] == colsNums[j - 1]){
+                    dp[j] = leftTop + 1;
+                }else {
+                    dp[j] =Math.max(dp[j],dp[j - 1]);
+                }
+            }
+        }
+        return dp[colsNums.length];
+    }
+    /**
+     * dp 动态规划 + 一维数组
+     */
+    public int lcs4(int[] nums1, int[] nums2){
+        if (nums1 == null || nums1.length == 0) {
+            return 0;
+        }
+        if (nums2 == null || nums2.length == 0) {
+            return 0;
+        }
+        int[] dp = new int[nums2.length + 1];
+
+        for (int i = 1; i <= nums1.length; i++) {
+            int cur = 0;
+            for (int j = 1; j <= nums2.length; j++) {
+                int leftTop = cur;
+                cur = dp[j];
+                if (nums1[i - 1] == nums2[j - 1]){
+                    dp[j] = leftTop + 1;
+                }else {
+                    dp[j] =Math.max(dp[j],dp[j - 1]);
+                }
+            }
+        }
+        return dp[nums2.length];
+    }
 
     /**
      * dp 动态规划 + 滚动数组
