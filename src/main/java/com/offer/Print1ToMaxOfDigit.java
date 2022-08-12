@@ -10,7 +10,10 @@ import java.util.Arrays;
 public class Print1ToMaxOfDigit {
     public static void main(String[] args) {
 //        print1ToMaxOfDigitV1(2);
-        print1ToMaxOfDigitV2(2);
+//        print1ToMaxOfDigitV2(2);
+
+        long l = System.currentTimeMillis();
+        System.out.println("l = " + l);
     }
 
     public static void print1ToMaxOfDigitV2(int digit) {

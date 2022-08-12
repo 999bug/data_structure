@@ -1,5 +1,7 @@
 package com.leetcode;
 
+import com.offer.base.ListNode;
+
 /**
  * @Date 2020/9/14 11:45
  * @Author by LiShiYan
@@ -19,17 +21,8 @@ public class 剑指_Offer_24_反转链表 {
         ListNode node = reverseList(node1);
         while (node!=null){
 
-            System.out.println(node.val);
+            System.out.println(node.value);
             node=node.next;
-        }
-    }
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
         }
     }
 
