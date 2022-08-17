@@ -1,6 +1,7 @@
 package com.offer.base;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 
@@ -41,6 +42,46 @@ public abstract class BaseTreeUtils {
             item = arrays[index++];
             node.right = new TreeNode(item);
             nodeQueue.add(node.right);
+        }
+        return root;
+    }
+
+    /**
+     * 将带有null 的字符串转换成二叉树
+     */
+    protected static TreeNode stringToTreeNode(String[] parts) {
+        String item = parts[0];
+        TreeNode root = new TreeNode(Integer.parseInt(item));
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        nodeQueue.add(root);
+
+        int index = 1;
+        while(!nodeQueue.isEmpty()) {
+            TreeNode node = nodeQueue.remove();
+
+            if (index == parts.length) {
+                break;
+            }
+
+            item = parts[index++];
+            item = item.trim();
+            if (!"null".equals(item)) {
+                int leftNumber = Integer.parseInt(item);
+                node.left = new TreeNode(leftNumber);
+                nodeQueue.add(node.left);
+            }
+
+            if (index == parts.length) {
+                break;
+            }
+
+            item = parts[index++];
+            item = item.trim();
+            if (!"null".equals(item)) {
+                int rightNumber = Integer.parseInt(item);
+                node.right = new TreeNode(rightNumber);
+                nodeQueue.add(node.right);
+            }
         }
         return root;
     }

@@ -1,4 +1,4 @@
-package com.offer;
+package com.offer.arrayorpoint;
 
 import java.util.Arrays;
 import java.util.Collections;
