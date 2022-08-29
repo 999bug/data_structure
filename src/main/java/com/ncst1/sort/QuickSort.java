@@ -8,6 +8,11 @@ import java.util.Arrays;
  * @Descaption 快排
  */
 public class QuickSort implements IArraySort {
+    public static void main(String[] args) {
+        int[] array = new int[]{4, 5, 1, 6, 2, 7, 3, 8};
+        int[] sort = new QuickSort().sort(array);
+        System.out.println(Arrays.toString(sort));
+    }
 
     @Override
     public int[] sort(int[] sourceArray) {
@@ -44,16 +49,16 @@ public class QuickSort implements IArraySort {
             while (low <= high && array[low] <= pivot) {
                 low++;
             }
-            while (low <= high && array[high] >pivot) {
+            while (low <= high && array[high] > pivot) {
                 high--;
             }
-            if (low<high){
-                swap(array,low,high);
+            if (low < high) {
+                swap(array, low, high);
             }
         }
 
         //重置pivot基准点，
-        swap(array,left,high);
+        swap(array, left, high);
         return high;
     }
 }
